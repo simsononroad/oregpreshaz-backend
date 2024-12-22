@@ -5,23 +5,32 @@ from flask import Flask, request, render_template, redirect, url_for, flash, ses
 import hashlib
 import sqlite3
 
+import hashlib
+def normal_to_hash(atalakitando, encode):
+    password = atalakitando
+    if encode == "":
+        encode = "UTF-8"
+    password_hash = hashlib.sha256(password.encode(encode)).hexdigest()
+    return password_hash
+
+
 # Felhasználó hazzáadásához szükséges lépések:
 #   1. Nézze meg egy másik file-ban hogy a tesztelni kívánt jelszónak mi a kódja.
 #   2. hozzon itt létre egy "password_in_hash_x" változót
 #   3. A try-on belül hozzon létre egy parancsoot ami beteszi a helyére a felhasználóneve és jelszót
 
 password_in_hash_1 = "b909abf3d9725ca479f74046b6a1235b973021bb3da7b8e212c113da8a4c86e6"
-password_in_hash_2 = "c52c5501c5ddd107202a95915b4466f98773b611a09cf8a283ebbe2760f6236a"
-password_in_hash_3 = "f854b2aeb789d616b26acff4df9ff7741d09d5f7a63add238201880e5b10bf2b"
+password_in_hash_2 = "9ad025d4631deee59e4d7d881d97f615f7cdb91a8ce639ab651ca445d431ef6b"
+password_in_hash_3 = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
 con = sqlite3.connect("login.db")
 cur = con.cursor()
 try:
     cur.execute("CREATE TABLE login(id INT PRIMARY KEY ,name, password)")
     ins = cur.execute(f"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('asfdasd', '{password_in_hash_2}')")
+    ins = cur.execute(f"insert into login (name, password) values ('Dani', '{password_in_hash_2}')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('oasdasasdasdk', '{password_in_hash_3}')")
+    ins = cur.execute(f"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}')")
     con.commit()
 except:
     pass
@@ -58,6 +67,31 @@ def add_to_db():
     con.commit()
     return redirect(url_for("dashboard"))
 
+@app.route("/change_datas", methods=["POST"])
+def change_password():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    old_name = request.form['old_name']
+    new_password = request.form['new_password']
+
+    new_password_in_hash = normal_to_hash(new_password, "UTF-8")
+
+    ins = cur.execute(f"UPDATE login SET password = '{new_password_in_hash}' WHERE name = '{old_name}'")
+    con.commit()
+    return redirect(url_for("dashboard"))
+
+@app.route("/change_name", methods=["POST"])
+def change_name():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    old_name = request.form['old_name']
+    new_name = request.form['new_name']
+
+
+    ins = cur.execute(f"UPDATE login SET name = '{new_name}' WHERE name = '{old_name}'")
+    con.commit()
+    return redirect(url_for("dashboard"))
+
 
 # Bejelentkezés
 @app.route("/login", methods=["POST"])
@@ -69,10 +103,6 @@ def login():
     password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
     username_in_html_felesleggel = f"('{username_in_html}',)"
     password_hash_felesleggel = f"('{password_in_html}',)"
-    print("================================")
-    print(f"A felhasználó beírta: {username_in_html_felesleggel}")
-    print(f"A felhasználó beírta: {password_hash_felesleggel}")
-    print("================================")
     # Hitelesítés az előre megadott adatokkal
     
     cur.execute(f"SELECT name, password FROM login WHERE name = \"{username_in_html}\"")
@@ -99,6 +129,12 @@ def dashboard():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/dashboard.html", user=session["user"])
+@app.route("/changedata")
+def change_data():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    return render_template("aloldalak/admin/change_data.html", user=session["user"])
 
 @app.route("/login_page")
 def login_page():
@@ -195,4 +231,4 @@ def sport():
     return render_template('aloldalak/sport.html')
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
