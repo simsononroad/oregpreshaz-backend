@@ -837,3 +837,57 @@ form {
     padding-right: 1%;
     border-radius: 10px;
 }
+
+.admin_input{
+    border: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    width: 100rem;
+    height: 2rem;
+    padding-top: 0px;
+    border-radius: 5px;
+    border-left: 3px black solid;
+    border-bottom: 3px black solid;
+    &::placeholder{
+        color: black;
+        font-size: large;
+    }
+    &:focus{
+        border-top: 3px black solid;
+        border-right: 3px black solid;
+        outline-width: 0px;
+    }
+}
+
+.admin_button{
+    background-color: rgba(173, 216, 230, 0.295);
+    outline-width: 0px;
+    border: 0px;
+    width: 10rem;
+    height: 2rem;
+    border-radius: 10px;
+    transition: background-color 0.1s ease-in-out;
+
+    &:hover{
+        background-color: rgba(173, 216, 230, 0.822);
+        transition: background-color 0.1s ease-in-out;
+        cursor: pointer;
+    }
+    &:active{
+        cursor: progress;
+    }
+}
+
+.disabled{
+    color: rgba(157, 171, 173, 0.685);
+    cursor: not-allowed;
+    list-style: none;
+    float: left;
+    display: block;
+    text-align: center;
+    padding: 0px;
+    text-decoration: none;
+    text-decoration: none;
+    transition: color 0.5s ease;
+    padding-bottom: 0px;
+    justify-content: center;
+}

@@ -1,17 +1,53 @@
-{% extends 'aloldalak/base.html' %}
-{% block style %}<link rel="stylesheet" href="../static/style.css">{% endblock %}
-{% block main %}<script src="../static/main.js"></script>{% endblock %}
-{% block lang %}<script src="../static/lang.js"></script>{% endblock %}
-{% block favicon %}<link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin felület</title>
+    <link rel="stylesheet" href="../../../static/style.css">
+    <script src="../../../static/main.js"></script>
+    <script src="../../../static/lang.js"></script>
+    <link rel="icon" type="image/x-icon" href="../../../static/images/favicon.ico">
+    
+</head>
+<body>
+    <div class="hu">
+        <div class="mnu">
+            <nav class="navbar">
+                <div class="brand-title">Öregprés ház</div>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="navbar-links">
+                    <ul class="ulll">
+                        <li><p class="disabled">Főoldal</p></li>
+                        <li><p class="disabled">Információk</p></li>
+                        <li><p class="disabled">Galéria</p></li>
+                        <li><p class="disabled">lehetőségek</p></li>
+                        <li><p class="disabled">Elérhetőségek</p></li>
+                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
+                        <li ><p class="disabled">Írj értékelést</p></li>
+                        <li><a href="/logout">Kijelentkezés</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
     <div class="container">
         <div class="hu">
 
             <div class="kozeledo">
-                <div class="kozelc" id="kozelcf">{{ title }}</div>
-                <div class="tajekoztato" id="tajekoztatof">
-                    {{ description }}
-                </div>
+                <form action="/add_to_db" method="post">
+                    <div class="kozelc" id="kozelcf"><input type="" placeholder="Közeledő események cím" name="title" class="admin_input"></div>
+                    <div class="tajekoztato" id="tajekoztatof">
+                        <input type="text" name="description" placeholder="Közeledő események bővebb leírása" class="admin_input">
+                    </div>
+                    <input type="submit" name="date" placeholder="Dátum" class="admin_button">
+                    {{ error_message }}
+                </form>
             </div>
 
             <div class="tajekoztato">
@@ -36,57 +72,7 @@
                 <a href="/segitseg" class="help">Segítség</a>
             </div>
         </div>
-        <div class="en">
-            <!--<div class="kozeledo">
-                <div class="kozelc" id="kozelcf"><div>
-                <div class="tajekoztato" id="tajekoztatof"></div>
-            </div>-->
-
-            <div class="tajekoztato">
-                <div class="elh">Values of Hőgyész:</div>
-                <div class="tajekoztato">Hőgyész in the southern part of Tolnai-Mountain in the Donat- in the valley of the stream- beautiful
-                    natural.
-                    lies in the environment.<a href="aloldalak/info.html">(Read more)</a>
-                </div>
-            </div>
-            <div class="rooms">
-                <div class="elh">Szobák felszereltsége: </div>
-                <div class="tajekoztato"><ul>
-                    <li class="rpm">Légkondi</li>
-                    <li class="rpm">2ágy(+1pótágy)</li>
-                    <li class="rpm">zuhany</li>
-                    <li class="rpm">Mosdókagyló</li>
-                    <li class="rpm">Tv</li>
-                    <li class="rpm">Ruhásszekrény</li>
-                    <li class="rpm"><a href="aloldalak/imagepage/szoba.html">Képek</a></li>
-                </ul></div>
-            </div>
-        </div>
-        <div class="de">
-            <!--<div class="kozeledo">
-                <div class="kozelc" id="kozelcf"></div>
-            </div>-->
-
-            <div class="tajekoztato">
-                <div class="elh">Die Werte von Hőgyész: </div>
-                <div class="tajekoztato">Hőgyész im Tal des Baches Donát, der entlang des Flusses Kapos im südlichen Teil von Tolnai-Hegyhát fließt, wunderschön
-                    natürlich.
-                    befindet sich in der Umgebung.<a href="aloldalak/info.html">(Ich lese weiter)</a></div>
-            </div>
-            <div class="rooms">
-                <div class="elh">Szobák felszereltsége: </div>
-                <div class="nrpm"><ul>
-                    <li class="rpm">Légkondi</li>
-                    <li class="rpm">2ágy(+1pótágy)</li>
-                    <li class="rpm">zuhany</li>
-                    <li class="rpm">Mosdókagyló</li>
-                    <li class="rpm">Tv</li>
-                    <li class="rpm">Ruhásszekrény</li>
-                    <li class="rpm"><a href="aloldalak/imagepage/szoba.html">Képek</a></li>
-                </ul></div>
-            </div>
-        </div>
-    </div>
+        
     <div class="svgs"> <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100pt" height="100pt"
             viewBox="0 0 300.000000 300.000000" preserveAspectRatio="xMidYMid meet">
             <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
@@ -127,4 +113,3 @@
 </body>
 
 </html>
-{% endblock %}
