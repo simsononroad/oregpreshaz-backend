@@ -1,10 +1,10 @@
 from flask import *
-
+import time
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 #import database
 import hashlib
 import sqlite3
-
+import datetime
 import hashlib
 def normal_to_hash(atalakitando, encode):
     password = atalakitando
@@ -48,8 +48,8 @@ app.secret_key = "szupertitkoskulcs"  # Ezt cseréld le egy erősebb kulcsra!
 # Főoldal (index)
 
 try:
-    cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description)")
-    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description) values ('1', ' ', ' ')")
+    cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
+    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
     con.commit()
 except:
     pass
@@ -62,8 +62,9 @@ def add_to_db():
     if title_in_html == "" or description_in_html == "":
         error_message = "A mezők kitöltése kötelező!"
         return redirect(url_for("dashboard", error_message=error_message))
-
-    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description) values ('1', '{title_in_html}', '{description_in_html}')")
+    nowdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    people = session["user"]
+    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', '{title_in_html}', '{description_in_html}', '{nowdate}', '{people}')")
     con.commit()
     return redirect(url_for("dashboard"))
 
@@ -71,34 +72,39 @@ def add_to_db():
 def change_password():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
-    old_name = request.form['old_name']
+    old_name = session["user"]
     new_password = request.form['new_password']
 
     new_password_in_hash = normal_to_hash(new_password, "UTF-8")
 
     ins = cur.execute(f"UPDATE login SET password = '{new_password_in_hash}' WHERE name = '{old_name}'")
     con.commit()
-    return redirect(url_for("dashboard"))
+    session.pop("user", None)
+    flash("Sikeres kijelentkezés.", "success")
+    return redirect(url_for("login_page"))
 
 @app.route("/change_name", methods=["POST"])
 def change_name():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
-    old_name = request.form['old_name']
+    old_name = session["user"]
     new_name = request.form['new_name']
 
 
     ins = cur.execute(f"UPDATE login SET name = '{new_name}' WHERE name = '{old_name}'")
     con.commit()
-    return redirect(url_for("dashboard"))
+    session.pop("user", None)
+    flash("Sikeres kijelentkezés.", "success")
+    return redirect(url_for("login_page"))
 
-
+logged_in_username = ""
 # Bejelentkezés
 @app.route("/login", methods=["POST"])
 def login():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
     username_in_html = request.form['username']
+    logged_in_username = username_in_html
     password_in_html = request.form['password']
     password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
     username_in_html_felesleggel = f"('{username_in_html}',)"
@@ -129,6 +135,8 @@ def dashboard():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/dashboard.html", user=session["user"])
+
+
 @app.route("/changedata")
 def change_data():
     if "user" not in session:
@@ -168,7 +176,13 @@ def index():
     cur.execute(f"SELECT description FROM esemenyek")
     description = cur.fetchall()
     description = description[0][0]
-    return render_template('index.html', title=title, description=description)
+    cur.execute(f"SELECT date FROM esemenyek")
+    date = cur.fetchall()
+    date = date[0][0]
+    cur.execute(f"SELECT people FROM esemenyek")
+    people = cur.fetchall()
+    people = people[0][0]
+    return render_template('index.html', title=title, description=description, date=date, people=people)
 
 @app.route('/informacio')
 def info():

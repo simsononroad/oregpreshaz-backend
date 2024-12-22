@@ -6,17 +6,16 @@
     <title>Adatok megváltoztatása</title>
 </head>
 <body>
-    <h1>Jelszó megváltoztatása</h1>
-    <form action="/change_datas" method="post">
-        <input type="text" placeholder="Eredeti felhasználónév" name="old_name" id=""><br>
-        <input placeholder="Új jelszó" type="password" name="new_password" id=""><br>
-        <input type="submit" value="Módosítás">
-    </form>
     <h1>Felhasználónév megváltoztatása</h1>
     <form action="/change_name" method="post">
-        <input type="text" placeholder="Eredeti felhasználónév" name="old_name" id=""><br>
         <input placeholder="Új felhasználónév" type="text" name="new_name" id=""><br>
         <input type="submit" value="Módosítás">
     </form>
+    <h1>Jelszó megváltoztatása</h1>
+    <form action="/change_datas" method="post">
+        <input placeholder="Új jelszó" type="password" name="new_password" id=""><br>
+        <input type="submit" value="Módosítás">
+    </form>
+    
 </body>
 </html>
