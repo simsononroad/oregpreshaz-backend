@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="../../../static/style.css">
+    <script src="../../../static/main.js"></script>
+    <script src="../../../static/lang.js"></script>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    
+</head>
+<body>
+    <div class="hu">
+        <div class="mnu">
+            <nav class="navbar">
+                <div class="brand-title">Öregprés ház</div>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="navbar-links">
+                    <ul class="ulll">
+                        <li><a href="/">Főoldal</a></li>
+                        <li><a href="/informacio">Információk</a></li>
+                        <li><a href="/galeria">Galéria</a></li>
+                        <li><a href="/kikapcsolodasi_lehetosegek">Kikapcsolódási lehetőségek</a></li>
+                        <li><a href="/elerhetosegek">Elérhetőségek</a></li>
+                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
+                        <li class="liii"> <a href="/send_message">Írj értékelést</a></li>
+                        <li class="nyelvvalaszt">
+                            <button class="btnny" onclick="en()">English</button>
+                            <button class="btnny" onclick="de()">Deutsch</button>
+                            <button class="btnny" onclick="hu()">Magyar</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="en">
+        <div class="mnu">
+            <nav class="navbar">
+                <div class="brand-title">Öregprés ház</div>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="navbar-links">
+                    <ul class="ulll">
+                        <li><a href="/">Homepage</a></li>
+                        <li><a href="/informacio">Information</a></li>
+                        <li><a href="/galeria">Galery</a></li>
+                        <li><a href="/kikapcsolodasi_lehetosegek">Relaxation</a></li>
+                        <li><a href="/elerhetosegek">Contacts</a></li>
+                        <li class="liii"> <a href="/send_message">Write a review</a></li>
+                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
+                        <li class="nyelvvalaszt">
+                            <button class="btnny" onclick="en()">English</button>
+                            <button class="btnny" onclick="de()">Deutsch</button>
+                            <button class="btnny" onclick="hu()">Magyar</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="de">
+        <div class="mnu">
+            <nav class="navbar">
+                <div class="brand-title">Öregprés ház</div>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="navbar-links">
+                    <ul class="ulll">
+                        <li><a href="/">Startseite</a></li>
+                        <li>Information</li>
+                        <li><a href="/galeria">Galerie</a></li>
+                        <li><a href="/kikapcsolodasi_lehetosegek">Freizeitmöglichkeiten</a></li>
+                        <li><a href="/elerhetosegek">Kontakte</a></li>
+                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
+                        <li class="nyelvvalaszt">
+                            <button class="btnny" onclick="en()">English</button>
+                            <button class="btnny" onclick="de()">Deutsch</button>
+                            <button class="btnny" onclick="hu()">Magyar</button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    {% block content %}{% endblock %}
+</body>

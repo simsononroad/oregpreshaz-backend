@@ -29,6 +29,10 @@ def elerhetosegek():
 def sand_message():
     return render_template('aloldalak/sand_message.html')
 
+@app.route('/kepek/furdo')
+def furdo():
+    return render_template('aloldalak/imagepage/furdo.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
