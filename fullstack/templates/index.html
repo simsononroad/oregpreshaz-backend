@@ -1,109 +1,9 @@
-<!DOCTYPE html>
-<html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>oregpreshaz</title>
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="aloldalak/images/favicon.png">
-    <script src="../static/main.js"></script>
-    <script src="../static/lang.js"></script>
-    <meta name="keywords" content="öregprésház, présház, preshaz, oregpreshaz, Hőgyész vendégház, Hőgyész, hőgyész">
-    <meta name="description" content="Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.">
-    <link rel="icon" type="image/x-icon" href="aloldalak/images/favicon.ico">
-
-</head>
-
-<body>
-    <div class="hu">
-        <div class="mnu">
-            <nav class="navbar">
-                <div class="brand-title">Öregprés ház</div>
-                <a href="#" class="toggle-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </a>
-                <div class="navbar-links">
-                    <ul class="ulll">
-                        <li class="liii">Főoldal</li>
-                        <li class="liii"><a href="/informacio">Információk</a></li>
-                        <li class="liii"><a href="aloldalak/galery.html">Galéria</a></li>
-                        <li class="liii"><a href="aloldalak/kikapcs.html">Kikapcsolódási lehetőségek</a></li>
-                        <li class="liii"><a href="aloldalak/elerhetosegek.html">Elérhetőségek</a></li>
-                        <li class="liii"> <a href="aloldalak/sand_message.html">Írj értékelést</a></li>
-                        <li class="liii"> </li>
-                        <!--<li class="liii"><a href="admin/admin.html">Admin felület</a></li>-->
-                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
-                        <li class="nyelvvalaszt">
-                            <button class="btnny" onclick="en()">English</button>
-                            <button class="btnny" onclick="de()">Deutsch</button>
-                            <button class="btnny" onclick="hu()">Magyar</button>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="en">
-        <div class="mnu">
-            <nav class="navbar">
-                <div class="brand-title">Öregprés ház</div>
-                <a href="#" class="toggle-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </a>
-                <div class="navbar-links">
-                    <ul class="ulll">
-                        <li>Homepage</li>
-                        <li><a href="aloldalak/info.html">Information</a></li>
-                        <li><a href="aloldalak/galery.html">Galery</a></li>
-                        <li><a href="aloldalak/kikapcs.html">Relaxation</a></li>
-                        <li><a href="aloldalak/elerhetosegek.html">Contacts</a></li>
-                        <li class="liii"> <a href="aloldalak/sand_message.html">Write a review</a></li>
-                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
-                        <li class="nyelvvalaszt">
-                            <button class="btnny" onclick="en()">English</button>
-                            <button class="btnny" onclick="de()">Deutsch</button>
-                            <button class="btnny" onclick="hu()">Magyar</button>
-                        </li>
-                    </ul>
-
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="de">
-        <div class="mnu">
-            <nav class="navbar">
-                <div class="brand-title">Öregprés ház</div>
-                <a href="#" class="toggle-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </a>
-                <div class="navbar-links">
-                    <ul class="ulll">
-                        <li>Startseite</li>
-                        <li><a href="aloldalak/info.html">Information</a></li>
-                        <li><a href="aloldalak/galery.html">Galerie</a></li>
-                        <li><a href="aloldalak/kikapcs.html">Freizeitmöglichkeiten</a></li>
-                        <li><a href="aloldalak/elerhetosegek.html">Kontakte</a></li>
-                        <li class="liii"> <a href="aloldalak/sand_message.html">eine Rezension schreiben</a></li>
-                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
-                        <li class="nyelvvalaszt">
-                            <button class="btnny" onclick="en()">English</button>
-                            <button class="btnny" onclick="de()">Deutsch</button>
-                            <button class="btnny" onclick="hu()">Magyar</button>
-                        </li>
-                    </ul>
-
-                </div>
-            </nav>
-        </div>
-    </div>
+{% extends 'aloldalak/base.html' %}
+{% block style %}<link rel="stylesheet" href="../static/style.css">{% endblock %}
+{% block main %}<script src="../static/main.js"></script>{% endblock %}
+{% block lang %}<script src="../static/lang.js"></script>{% endblock %}
+{% block favicon %}<link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">{% endblock %}
+{% block content %}
     <div class="container">
         <div class="hu">
 
@@ -132,7 +32,7 @@
                 </ul></div>
             </div>
             <div>
-                <a href="aloldalak/help.html" class="help">Segítség</a>
+                <a href="/segitseg" class="help">Segítség</a>
             </div>
         </div>
         <div class="en">
@@ -226,3 +126,4 @@
 </body>
 
 </html>
+{% endblock %}

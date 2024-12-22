@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="../../static/style.css">
-    <script src="../../static/main.js"></script>
-    <script src="../../static/lang.js"></script>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    {% block style %}<link rel="stylesheet" href="../../static/style.css">{% endblock %}
+    {% block main %}<script src="../../static/main.js"></script>{% endblock %}
+    {% block lang %}<script src="../../static/lang.js"></script>{% endblock %}
+    {% block favicon %}<link rel="icon" type="image/x-icon" href="../../static/images/favicon.ico">{% endblock %}
     
 </head>
 <body>
