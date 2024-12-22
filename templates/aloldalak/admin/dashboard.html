@@ -53,9 +53,21 @@
 
             <div class="tajekoztato">
                 <div class="elh">Hőgyész értékei: </div>
-                <div class="tajekoztato">Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép
-                    természeti.
-                    környezetben fekszik.<a href="aloldalak/info.html">(Tovább olvasom)</a></div>
+                <div class="tajekoztato">
+                    <form action="/value_of_hogyesz" method="post">
+                        <textarea name="hogyesz_erteke" id="">
+                            {% if hogyesz_ertekei_is_on == True %}
+                                {{ hogyesz_ertekei }}
+                            {% endif %}
+                            
+                        </textarea>
+                        <input type="submit", value="Mentés">
+                    </form>
+                    <form action="/value_of_hogyesz_insert_text" method="post">
+                        <input type="submit", value="Eredeti szöveg beillesztése">
+                    </form>
+                    <a href="aloldalak/info.html">(Tovább olvasom)</a>
+                </div>
             </div>
             <div class="rooms">
                 <div class="elh">Szobák felszereltsége: </div>

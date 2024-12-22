@@ -46,10 +46,18 @@ app.secret_key = "szupertitkoskulcs"  # Ezt cseréld le egy erősebb kulcsra!
 
 
 # Főoldal (index)
+hogyesz_ertekei = ""
+hogyesz_ertekei_is_on = False
 
 try:
     cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
+    con.commit()
+except:
+    pass
+try:
+    cur.execute("CREATE TABLE szovegek(id INT PRIMARY KEY ,values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor)")
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
     con.commit()
 except:
     pass
@@ -66,6 +74,30 @@ def add_to_db():
     people = session["user"]
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', '{title_in_html}', '{description_in_html}', '{nowdate}', '{people}')")
     con.commit()
+    return redirect(url_for("dashboard"))
+
+
+@app.route("/value_of_hogyesz", methods=["POST"])
+def value_of_hogyesz():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    value_of_hogyesz_in_html = request.form['hogyesz_erteke']
+    if value_of_hogyesz_in_html == "":
+        error_message = "A mezők kitöltése kötelező!"
+        return redirect(url_for("dashboard", error_message=error_message))
+
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz) values ('1', '{value_of_hogyesz_in_html}')")
+    con.commit()
+    return redirect(url_for("dashboard"))
+
+@app.route("/value_of_hogyesz_insert_text", methods=["POST"])
+def value_of_hogyesz_insert_text():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
+    hogyesz_ertekei_d = cur.fetchall()
+    hogyesz_ertekei = hogyesz_ertekei_d[0][0]
+    hogyesz_ertekei_is_on = True
     return redirect(url_for("dashboard"))
 
 @app.route("/change_datas", methods=["POST"])
