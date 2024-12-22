@@ -33,6 +33,30 @@ def sand_message():
 def furdo():
     return render_template('aloldalak/imagepage/furdo.html')
 
+@app.route('/kepek/kint')
+def kint():
+    return render_template('aloldalak/imagepage/kint.html')
+
+@app.route('/kepek/konyha')
+def konyha():
+    return render_template('aloldalak/imagepage/konyha.html')
+
+@app.route('/kepek/nappali')
+def nappali():
+    return render_template('aloldalak/imagepage/nappali.html')
+
+@app.route('/kepek/szoba')
+def szoba():
+    return render_template('aloldalak/imagepage/szoba.html')
+
+@app.route('/kepek/telikert')
+def telikert():
+    return render_template('aloldalak/imagepage/telikert.html')
+
+@app.route('/kepek/udvar')
+def udvar():
+    return render_template('aloldalak/imagepage/udvar.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
