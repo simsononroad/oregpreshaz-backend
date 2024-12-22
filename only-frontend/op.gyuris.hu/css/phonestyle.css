@@ -1,0 +1,154 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.mobile-container {
+  max-width: auto;
+  margin: auto;
+  height: 500px;
+  color: white;
+  border-radius: 10px;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: rgba(27, 230, 62, 0.4);
+  position: relative;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  float: left;
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a.icon {
+  float: right;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  color: white;
+  font-size: 100px;
+}
+
+.btn {
+  border-radius: 5px;
+  background-color: lightblue;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.headed {
+  background-color: lightgreen;
+  width: auto;
+  margin: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  opacity: 1;
+  text-align: center;
+  font-size: 69px;
+  background-color: rgba(27, 230, 62, 0.4);
+  opacity: 1;
+}
+
+html {
+  background-image: url("https://images.unsplash.com/photo-1624359136353-f60129a367b9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWddfHx8fGVufDB8fHx8fA%3D%3D");
+}
+
+span {
+  padding-left: auto;
+
+}
+
+.terkep {
+  padding-top: 10px;
+  width: auto;
+  height: auto;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10;
+  overflow: hidden;
+  background-color: #333333;
+  margin-bottom: 10px;
+}
+
+li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111111;
+}
+
+ul {
+  text-align: center;
+}
+
+.tajekoztato {
+  background-color: rgba(0, 56, 255, 0.1);
+  padding-top: 10px;
+  width: auto;
+  font-size: 30px;
+}
+
+a {
+  color: black;
+}
+
+a:visited {
+  text-decoration: dotted;
+}
+
+.elh {
+  background-color: rgba(0, 56, 255, 0.4);
+  width: auto;
+  border-top-left-radius: 10px;
+  padding-left: 5px;
+  border-top-right-radius: 10px;
+  font-size: 30px;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/new/phonestyle.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Simulate a smartphone / tablet look -->
+    <div class="mobile-container">
+
+        <!-- Top Navigation Menu -->
+        <div class="topnav">
+            <a href="#home" class="active">Öregprésház | </a>
+            <div id="myLinks">
+                <a href="pinfo.html">Információk</a>
+                <a href="pgalery.html">Galéria</a>
+                <a href="#about">Kikapcsolódási lehetőségek</a>
+                <a href="#elerhetosegek">Elérhetőségek</a>
+                <a href="/new/index.html">Számítógépen használom</a>
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        <div class="terkep">
+            <iframe src="https://www.google.com/maps/d/embed?mid=1esJ8-IAOmTP76jDA4MJWPcJXxl80Vws&ehbc=2E312F"
+                width="378" height="480"></iframe>
+        </div>
+
+        <!-- End smartphone / tablet look -->
+    </div>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

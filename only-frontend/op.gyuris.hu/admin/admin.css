@@ -1,0 +1,13 @@
+html{
+    background-color: transparent;
+}
+
+.adminc{
+    background-color: transparent;
+    padding-right: 600px;
+    padding-left: 600px;
+    border: 5px;
+    border-color: blue;
+    border-style: solid;
+    border-radius: 10px;
+}
