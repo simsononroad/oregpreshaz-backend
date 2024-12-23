@@ -1,3 +1,4 @@
+#!/srv/www/gyuris.hu/op.gyuris.hu/.venv/bin/python
 from flask import *
 import time
 from flask import Flask, request, render_template, redirect, url_for, flash, session
@@ -22,7 +23,7 @@ def normal_to_hash(atalakitando, encode):
 password_in_hash_1 = "b909abf3d9725ca479f74046b6a1235b973021bb3da7b8e212c113da8a4c86e6"
 password_in_hash_2 = "9ad025d4631deee59e4d7d881d97f615f7cdb91a8ce639ab651ca445d431ef6b"
 password_in_hash_3 = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
-con = sqlite3.connect("login.db")
+con = sqlite3.connect("db/login.db")
 cur = con.cursor()
 try:
     cur.execute("CREATE TABLE login(id INT PRIMARY KEY ,name, password)")
@@ -63,14 +64,13 @@ app.secret_key = "szupertitkoskulcs"  # Ezt cseréld le egy erősebb kulcsra!
 cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
 hogyesz_ertekei = cur.fetchall()
 hogyesz_ertekei = hogyesz_ertekei[0][0]
-print(hogyesz_ertekei)
 hogyesz_ertekei_is_on = False
 
 
 
 @app.route("/add_to_db", methods=["POST"])
 def add_to_db():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     title_in_html = request.form['title']
     description_in_html = request.form['description']
@@ -86,7 +86,7 @@ def add_to_db():
 
 @app.route("/value_of_hogyesz", methods=["POST"])
 def value_of_hogyesz():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     value_of_hogyesz_in_html = request.form['hogyesz_erteke']
     cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
@@ -94,7 +94,7 @@ def value_of_hogyesz():
     info_of_hogyesz = info_of_hogyesz[0][0]
     cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
     kikapcsolodas_motor = cur.fetchall()
-    kikapcsolodas_motor = info_of_hogyesz[0][0]
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
     if value_of_hogyesz_in_html == "":
         error_message = "A mezők kitöltése kötelező!"
         return redirect(url_for("dashboard", error_message=error_message))
@@ -105,14 +105,14 @@ def value_of_hogyesz():
 
 @app.route("/value_of_hogyesz_insert_text", methods=["POST"])
 def value_of_hogyesz_insert_text():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
     info_of_hogyesz = cur.fetchall()
     info_of_hogyesz = info_of_hogyesz[0][0]
     cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
     kikapcsolodas_motor = cur.fetchall()
-    kikapcsolodas_motor = info_of_hogyesz[0][0]
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', '{info_of_hogyesz}', '{kikapcsolodas_motor}')")
     con.commit()
     return redirect(url_for("dashboard"))
@@ -122,7 +122,7 @@ def value_of_hogyesz_insert_text():
 
 @app.route("/kikapcs_motor", methods=["POST"])
 def kikapcs_motor():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     kikapcsolodas_motor_html = request.form['kikapcsolodas_motor']
     cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
@@ -146,14 +146,14 @@ def kikapcs_motor():
 
 @app.route("/kikapcs_motor_insert", methods=["POST"])
 def kikapcs_motor_insert():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
     info_of_hogyesz = cur.fetchall()
     info_of_hogyesz = info_of_hogyesz[0][0]
     cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
     values_of_hogyesz = cur.fetchall()
-    values_of_hogyesz = info_of_hogyesz[0][0]
+    values_of_hogyesz = values_of_hogyesz[0][0]
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', '{info_of_hogyesz}', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
     con.commit()
     return redirect(url_for("admin_motor")) 
@@ -164,7 +164,7 @@ def kikapcs_motor_insert():
 
 @app.route("/hogyesz_info", methods=["POST"])
 def hogyesz_info():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     info_hogyesz_html = request.form['info_hogyesz']
     cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
@@ -183,7 +183,7 @@ def hogyesz_info():
 
 @app.route("/hogyesz_info_insert", methods=["POST"])
 def hogyesz_info_insert():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
     values_of_hogyesz  = cur.fetchall()
@@ -201,22 +201,31 @@ def hogyesz_info_insert():
 
 @app.route("/change_datas", methods=["POST"])
 def change_password():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
+    cur.execute(f"SELECT password FROM login WHERE name = '{session['user']}'")
+    password_in_db = cur.fetchall()
     old_name = session["user"]
     new_password = request.form['new_password']
-
-    new_password_in_hash = normal_to_hash(new_password, "UTF-8")
-
-    ins = cur.execute(f"UPDATE login SET password = '{new_password_in_hash}' WHERE name = '{old_name}'")
-    con.commit()
-    session.pop("user", None)
-    flash("Sikeres kijelentkezés.", "success")
-    return redirect(url_for("login_page"))
+    old_password = request.form['old_password']
+    old_password_in_hash = normal_to_hash(old_password, "UTF-8")
+    password_in_db = password_in_db[0][0]
+    if password_in_db == old_password_in_hash:
+        new_password_in_hash = normal_to_hash(new_password, "UTF-8")
+        ins = cur.execute(f"UPDATE login SET password = '{new_password_in_hash}' WHERE name = '{old_name}'")
+        con.commit()
+        session.pop("user", None)
+        flash("Sikeres kijelentkezés.", "success")
+        return redirect(url_for("login_page"))
+    else:
+        flash("Helytelen jelszó.", "error")
+        error_message = "Helytelen jelszó."
+        return redirect(url_for("change_data", error_message=error_message))
+    
 
 @app.route("/change_name", methods=["POST"])
 def change_name():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     old_name = session["user"]
     new_name = request.form['new_name']
@@ -232,7 +241,7 @@ logged_in_username = ""
 # Bejelentkezés
 @app.route("/login", methods=["POST"])
 def login():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     username_in_html = request.form['username']
     logged_in_username = username_in_html
@@ -244,7 +253,6 @@ def login():
     
     cur.execute(f"SELECT name, password FROM login WHERE name = \"{username_in_html}\"")
     login_in_db = cur.fetchall()
-    print(login_in_db)
     
     if len(login_in_db) == 0:
         flash("Helytelen felhasználónév vagy jelszó.", "error")
@@ -262,7 +270,7 @@ def login():
 # Dashboard (csak bejelentkezett felhasználóknak)
 @app.route("/dashboard")
 def dashboard():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
     hogyesz_ertekei = cur.fetchall()
@@ -274,7 +282,7 @@ def dashboard():
 
 @app.route("/admin/motor")
 def admin_motor():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
     kikapcsolodas_motor = cur.fetchall()
@@ -286,7 +294,7 @@ def admin_motor():
 
 @app.route("/admin_info")
 def admin_info():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
     info_hogyesz = cur.fetchall()
@@ -328,7 +336,7 @@ app.static_folder = 'static'
 @app.route('/')
 def index():
     #print(title, description)
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT title FROM esemenyek")
     title = cur.fetchall()
@@ -349,7 +357,7 @@ def index():
 
 @app.route('/informacio')
 def info():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
     hogyesz_info = cur.fetchall()
@@ -406,7 +414,7 @@ def segitseg():
 
 @app.route('/kikapcsolodasi_lehetosegek/motorozas')
 def motorozas():
-    con = sqlite3.connect("login.db")
+    con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
     kikapcsolodas_motor = cur.fetchall()
