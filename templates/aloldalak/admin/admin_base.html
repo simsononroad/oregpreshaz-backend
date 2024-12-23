@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin felület{% endblock %}</title>
+    <link rel="stylesheet" href="../../../static/style.css">
+    <script src="../../../static/main.js"></script>
+    <script src="../../../static/lang.js"></script>
+    <link rel="icon" type="image/x-icon" href="../../../static/images/favicon.ico">
+    
+</head>
+<body>
+    <div class="hu">
+        <div class="mnu">
+            <nav class="navbar">
+                <div class="brand-title">Öregprés ház: {{ user }}</div>
+                <a href="#" class="toggle-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="navbar-links">
+                    <ul class="ulll">
+                        <li><a href="/dashboard">Főoldal</a></li>
+                        <li><a href="/admin_info">Információk</a></li>
+                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
+                        <li><a href="/changedata">Adatok megváltoztatása.</a></li>
+                        <li><a href="/logout">Kijelentkezés</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    {% block content %}
+    {% endblock %}

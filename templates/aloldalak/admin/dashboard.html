@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin felület</title>
-    <link rel="stylesheet" href="../../../static/style.css">
-    <script src="../../../static/main.js"></script>
-    <script src="../../../static/lang.js"></script>
-    <link rel="icon" type="image/x-icon" href="../../../static/images/favicon.ico">
-    
-</head>
-<body>
-    <div class="hu">
-        <div class="mnu">
-            <nav class="navbar">
-                <div class="brand-title">Öregprés ház: {{ user }}</div>
-                <a href="#" class="toggle-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </a>
-                <div class="navbar-links">
-                    <ul class="ulll">
-                        <li><p class="disabled">Főoldal</p></li>
-                        <li><p class="disabled">Információk</p></li>
-                        <li><p class="disabled">Galéria</p></li>
-                        <li><p class="disabled">lehetőségek</p></li>
-                        <li><p class="disabled">Elérhetőségek</p></li>
-                        <!--<span><li><a href="aloldalak/phone.html">Telefonon használom</a></li></span>-->
-                        <li ><p class="disabled">Írj értékelést</p></li>
-                        <li><a href="/changedata">Adatok megváltoztatása.</a></li>
-                        <li><a href="/logout">Kijelentkezés</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block content %}
     <div class="container">
         <div class="hu">
 
@@ -122,3 +85,4 @@
 </body>
 
 </html>
+{% endblock %}

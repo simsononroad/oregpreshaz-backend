@@ -35,6 +35,20 @@ try:
 except:
     pass
 
+# Táblák létrehozása
+try:
+    cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
+    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
+    con.commit()
+except:
+    pass
+try:
+    cur.execute("CREATE TABLE szovegek(id INT PRIMARY KEY ,values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor)")
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
+    con.commit()
+except:
+    pass
+
 
 
 app = Flask(__name__)
@@ -51,19 +65,7 @@ hogyesz_ertekei = cur.fetchall()
 hogyesz_ertekei = hogyesz_ertekei[0][0]
 print(hogyesz_ertekei)
 hogyesz_ertekei_is_on = False
-# Táblák létrehozása
-try:
-    cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
-    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
-    con.commit()
-except:
-    pass
-try:
-    cur.execute("CREATE TABLE szovegek(id INT PRIMARY KEY ,values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor)")
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
-    con.commit()
-except:
-    pass
+
 
 
 @app.route("/add_to_db", methods=["POST"])
@@ -91,7 +93,7 @@ def value_of_hogyesz():
         error_message = "A mezők kitöltése kötelező!"
         return redirect(url_for("dashboard", error_message=error_message))
 
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz) values ('1', '{value_of_hogyesz_in_html}')")
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz) values ('1', '{value_of_hogyesz_in_html}')")
     con.commit()
     return redirect(url_for("dashboard"))
 
@@ -102,6 +104,33 @@ def value_of_hogyesz_insert_text():
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.')")
     con.commit()
     return redirect(url_for("dashboard"))
+
+
+
+
+@app.route("/hogyesz_info", methods=["POST"])
+def hogyesz_info():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    info_hogyesz_html = request.form['info_hogyesz']
+    if info_hogyesz_html == "":
+        error_message = "A mezők kitöltése kötelező!"
+        return redirect(url_for("dashboard", error_message=error_message))
+
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, info_of_hogyesz) values ('1', '{info_hogyesz_html}')")
+    con.commit()
+    return redirect(url_for("admin_info"))
+
+@app.route("/hogyesz_info_insert", methods=["POST"])
+def hogyesz_info_insert():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, info_of_hogyesz) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.')")
+    con.commit()
+    return redirect(url_for("admin_info"))
+
+
+
 
 
 @app.route("/change_datas", methods=["POST"])
@@ -177,6 +206,18 @@ def dashboard():
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei)
 
+@app.route("/admin_info")
+def admin_info():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    info_hogyesz = cur.fetchall()
+    info_hogyesz = info_hogyesz[0][0]
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    return render_template("aloldalak/admin/info.html", user=session["user"], info_hogyesz=info_hogyesz)
+
 
 @app.route("/changedata")
 def change_data():
@@ -230,7 +271,12 @@ def index():
 
 @app.route('/informacio')
 def info():
-    return render_template('aloldalak/info.html')
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    hogyesz_info = cur.fetchall()
+    hogyesz_info = hogyesz_info[0][0]
+    return render_template('aloldalak/info.html', hogyesz_info=hogyesz_info)
 
 @app.route('/galeria')
 def galeria():

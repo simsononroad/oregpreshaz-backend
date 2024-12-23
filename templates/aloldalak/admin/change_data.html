@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adatok megváltoztatása</title>
-</head>
+{%extends "aloldalak/admin/admin_base.html" %}
+{% block content %}
 <body>
     <h1>Felhasználónév megváltoztatása</h1>
     <form action="/change_name" method="post">
-        <input placeholder="Új felhasználónév" type="text" name="new_name" id=""><br>
+        <input placeholder="Új felhasználónév" type="text" name="new_name" class="admin_input" id=""><br>
         <input type="submit" value="Módosítás">
     </form>
     <h1>Jelszó megváltoztatása</h1>
     <form action="/change_datas" method="post">
-        <input placeholder="Új jelszó" type="password" name="new_password" id=""><br>
+        <input placeholder="Új jelszó" type="password" name="new_password" id="" class="admin_input"><br>
         <input type="submit" value="Módosítás">
     </form>
     
 </body>
 </html>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "aloldalak/base.html" %}
+{% extends "aloldalak/admin/admin_base.html" %}
 {% block title %}Információk{% endblock %}
 
 {% block content %}
@@ -26,7 +26,14 @@
             </div>
         </div>-->
         <div class="tajekoztato">
-            {{ hogyesz_info }} 
+            <form action="/hogyesz_info" method="post">
+                <textarea name="info_hogyesz" id="" class="textarea_info">{{ info_hogyesz}}</textarea>
+                <input type="submit", value="Mentés" class="admin_button">
+            </form>
+            <form action="/hogyesz_info_insert" method="post">
+                <input type="submit", value="Eredeti szöveg mentése." class="admin_button">
+
+            </form>
         </div>
     </div>
 
