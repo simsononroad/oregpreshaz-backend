@@ -55,17 +55,13 @@
                 <div class="elh">Hőgyész értékei: </div>
                 <div class="tajekoztato">
                     <form action="/value_of_hogyesz" method="post">
-                        <textarea name="hogyesz_erteke" id="">
-                            {% if hogyesz_ertekei_is_on == True %}
-                                {{ hogyesz_ertekei }}
-                            {% endif %}
-                            
-                        </textarea>
-                        <input type="submit", value="Mentés">
+                        <textarea name="hogyesz_erteke" id="" class="textarea">{{ hogyesz_ertekei }}</textarea>
+                        <input type="submit", value="Mentés" class="admin_button">
                     </form>
                     <form action="/value_of_hogyesz_insert_text" method="post">
-                        <input type="submit", value="Eredeti szöveg beillesztése">
+                        <input type="submit", value="Eredeti szöveg beillesztése" class="admin_button">
                     </form>
+                    {{ error_message }}
                     <a href="aloldalak/info.html">(Tovább olvasom)</a>
                 </div>
             </div>

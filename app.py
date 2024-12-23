@@ -46,9 +46,12 @@ app.secret_key = "szupertitkoskulcs"  # Ezt cseréld le egy erősebb kulcsra!
 
 
 # Főoldal (index)
-hogyesz_ertekei = ""
+cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
+hogyesz_ertekei = cur.fetchall()
+hogyesz_ertekei = hogyesz_ertekei[0][0]
+print(hogyesz_ertekei)
 hogyesz_ertekei_is_on = False
-
+# Táblák létrehozása
 try:
     cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
@@ -61,6 +64,8 @@ try:
     con.commit()
 except:
     pass
+
+
 @app.route("/add_to_db", methods=["POST"])
 def add_to_db():
     con = sqlite3.connect("login.db")
@@ -94,11 +99,10 @@ def value_of_hogyesz():
 def value_of_hogyesz_insert_text():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
-    cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
-    hogyesz_ertekei_d = cur.fetchall()
-    hogyesz_ertekei = hogyesz_ertekei_d[0][0]
-    hogyesz_ertekei_is_on = True
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.')")
+    con.commit()
     return redirect(url_for("dashboard"))
+
 
 @app.route("/change_datas", methods=["POST"])
 def change_password():
@@ -163,10 +167,15 @@ def login():
 # Dashboard (csak bejelentkezett felhasználóknak)
 @app.route("/dashboard")
 def dashboard():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
+    hogyesz_ertekei = cur.fetchall()
+    hogyesz_ertekei = hogyesz_ertekei[0][0]
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
-    return render_template("aloldalak/admin/dashboard.html", user=session["user"])
+    return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei)
 
 
 @app.route("/changedata")
@@ -214,7 +223,10 @@ def index():
     cur.execute(f"SELECT people FROM esemenyek")
     people = cur.fetchall()
     people = people[0][0]
-    return render_template('index.html', title=title, description=description, date=date, people=people)
+    cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
+    hogyesz_ertekei = cur.fetchall()
+    hogyesz_ertekei = hogyesz_ertekei[0][0]
+    return render_template('index.html', title=title, description=description, date=date, people=people, hogyesz_ertekei=hogyesz_ertekei)
 
 @app.route('/informacio')
 def info():
