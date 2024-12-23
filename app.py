@@ -89,11 +89,17 @@ def value_of_hogyesz():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
     value_of_hogyesz_in_html = request.form['hogyesz_erteke']
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    info_of_hogyesz = cur.fetchall()
+    info_of_hogyesz = info_of_hogyesz[0][0]
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = info_of_hogyesz[0][0]
     if value_of_hogyesz_in_html == "":
         error_message = "A mezők kitöltése kötelező!"
         return redirect(url_for("dashboard", error_message=error_message))
 
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz) values ('1', '{value_of_hogyesz_in_html}')")
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{value_of_hogyesz_in_html}', '{info_of_hogyesz}', '{kikapcsolodas_motor}')")
     con.commit()
     return redirect(url_for("dashboard"))
 
@@ -101,9 +107,57 @@ def value_of_hogyesz():
 def value_of_hogyesz_insert_text():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.')")
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    info_of_hogyesz = cur.fetchall()
+    info_of_hogyesz = info_of_hogyesz[0][0]
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = info_of_hogyesz[0][0]
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', '{info_of_hogyesz}', '{kikapcsolodas_motor}')")
     con.commit()
     return redirect(url_for("dashboard"))
+
+
+
+
+@app.route("/kikapcs_motor", methods=["POST"])
+def kikapcs_motor():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    kikapcsolodas_motor_html = request.form['kikapcsolodas_motor']
+    cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
+    values_of_hogyesz  = cur.fetchall()
+    values_of_hogyesz  = values_of_hogyesz[0][0]
+    
+    kikapcs_motor_html = request.form['kikapcsolodas_motor']
+    
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    info_of_hogyesz = cur.fetchall()
+    info_of_hogyesz = info_of_hogyesz[0][0]
+    if kikapcs_motor_html == "":
+        error_message = "A mezők kitöltése kötelező!"
+        return redirect(url_for("dashboard", error_message=error_message))
+
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz }', '{info_of_hogyesz}', '{kikapcsolodas_motor_html}')")
+    con.commit()
+    return redirect(url_for("admin_motor"))
+
+
+
+@app.route("/kikapcs_motor_insert", methods=["POST"])
+def kikapcs_motor_insert():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT info_of_hogyesz FROM szovegek WHERE id = 1")
+    info_of_hogyesz = cur.fetchall()
+    info_of_hogyesz = info_of_hogyesz[0][0]
+    cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
+    values_of_hogyesz = cur.fetchall()
+    values_of_hogyesz = info_of_hogyesz[0][0]
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', '{info_of_hogyesz}', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
+    con.commit()
+    return redirect(url_for("admin_motor")) 
+
 
 
 
@@ -113,11 +167,17 @@ def hogyesz_info():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
     info_hogyesz_html = request.form['info_hogyesz']
+    cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
+    values_of_hogyesz  = cur.fetchall()
+    values_of_hogyesz  = values_of_hogyesz[0][0]
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
     if info_hogyesz_html == "":
         error_message = "A mezők kitöltése kötelező!"
         return redirect(url_for("dashboard", error_message=error_message))
 
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, info_of_hogyesz) values ('1', '{info_hogyesz_html}')")
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz }', '{info_hogyesz_html}', '{kikapcsolodas_motor}')")
     con.commit()
     return redirect(url_for("admin_info"))
 
@@ -125,7 +185,13 @@ def hogyesz_info():
 def hogyesz_info_insert():
     con = sqlite3.connect("login.db")
     cur = con.cursor()
-    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, info_of_hogyesz) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.')")
+    cur.execute(f"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1")
+    values_of_hogyesz  = cur.fetchall()
+    values_of_hogyesz  = values_of_hogyesz[0][0]
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
+    ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', '{kikapcsolodas_motor}')")
     con.commit()
     return redirect(url_for("admin_info"))
 
@@ -205,6 +271,18 @@ def dashboard():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei)
+
+@app.route("/admin/motor")
+def admin_motor():
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    return render_template("aloldalak/admin/moto.html", user=session["user"], kikapcsolodas_motor=kikapcsolodas_motor)
 
 @app.route("/admin_info")
 def admin_info():
@@ -328,7 +406,12 @@ def segitseg():
 
 @app.route('/kikapcsolodasi_lehetosegek/motorozas')
 def motorozas():
-    return render_template('aloldalak/moto.html')
+    con = sqlite3.connect("login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
+    kikapcsolodas_motor = cur.fetchall()
+    kikapcsolodas_motor = kikapcsolodas_motor[0][0]
+    return render_template('aloldalak/moto.html', kikapcsolodas_motor=kikapcsolodas_motor)
 
 @app.route('/sport')
 def sport():

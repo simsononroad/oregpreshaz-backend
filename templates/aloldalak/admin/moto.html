@@ -1,0 +1,21 @@
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block title %}Motorozás{% endblock %}
+
+{% block content %}
+<div class="hu">
+    <div class="elh">Kikapcsolódási lehetőségek: </div>
+    <div class="tajekoztato">
+        <form action="/kikapcs_motor" method="post">
+            <textarea name="kikapcsolodas_motor" class="textarea" id="">{{ kikapcsolodas_motor }}</textarea>
+            <input type="submit" value="Mentés" class="admin_button">
+        </form>    
+        <form action="/kikapcs_motor_insert" method="post">
+            <input type="submit" value="Eredeti szöveg mentése." class="admin_button">
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>
+{% endblock %}
