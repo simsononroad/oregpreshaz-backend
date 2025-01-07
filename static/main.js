@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 		navbarLinks.classList.toggle('active')
 	})
 	BrandTitle.addEventListener('click', () => {
-		window.open("../index.html")
+		window.open("/")
 	})
 })
 

@@ -1,0 +1,516 @@
+[
+    {
+        "label": "*",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "sqlite3",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sqlite3",
+        "description": "sqlite3",
+        "detail": "sqlite3",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "normal_to_hash",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def normal_to_hash(atalakitando, encode):\n    password = atalakitando\n    if encode == \"\":\n        encode = \"UTF-8\"\n    password_hash = hashlib.sha256(password.encode(encode)).hexdigest()\n    return password_hash\n# Felhasználó hazzáadásához szükséges lépések:\n#   1. Nézze meg egy másik file-ban hogy a tesztelni kívánt jelszónak mi a kódja.\n#   2. hozzon itt létre egy \"password_in_hash_x\" változót\n#   3. A try-on belül hozzon létre egy parancsoot ami beteszi a helyére a felhasználóneve és jelszót",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "add_to_db",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def add_to_db():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    title_in_html = request.form['title']\n    description_in_html = request.form['description']\n    if title_in_html == \"\" or description_in_html == \"\":\n        error_message = \"A mezők kitöltése kötelező!\"\n        return redirect(url_for(\"dashboard\", error_message=error_message))\n    nowdate = datetime.datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")\n    people = session[\"user\"]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "value_of_hogyesz",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def value_of_hogyesz():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    value_of_hogyesz_in_html = request.form['hogyesz_erteke']\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    info_of_hogyesz = cur.fetchall()\n    info_of_hogyesz = info_of_hogyesz[0][0]\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "value_of_hogyesz_insert_text",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def value_of_hogyesz_insert_text():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    info_of_hogyesz = cur.fetchall()\n    info_of_hogyesz = info_of_hogyesz[0][0]\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]\n    ins = cur.execute(f\"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', '{info_of_hogyesz}', '{kikapcsolodas_motor}')\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "kikapcs_motor",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def kikapcs_motor():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    kikapcsolodas_motor_html = request.form['kikapcsolodas_motor']\n    cur.execute(f\"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1\")\n    values_of_hogyesz  = cur.fetchall()\n    values_of_hogyesz  = values_of_hogyesz[0][0]\n    kikapcs_motor_html = request.form['kikapcsolodas_motor']\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    info_of_hogyesz = cur.fetchall()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "kikapcs_motor_insert",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def kikapcs_motor_insert():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    info_of_hogyesz = cur.fetchall()\n    info_of_hogyesz = info_of_hogyesz[0][0]\n    cur.execute(f\"SELECT values_of_hogyesz FROM szovegek WHERE id = 1\")\n    values_of_hogyesz = cur.fetchall()\n    values_of_hogyesz = values_of_hogyesz[0][0]\n    ins = cur.execute(f\"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', '{info_of_hogyesz}', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "hogyesz_info",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def hogyesz_info():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    info_hogyesz_html = request.form['info_hogyesz']\n    cur.execute(f\"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1\")\n    values_of_hogyesz  = cur.fetchall()\n    values_of_hogyesz  = values_of_hogyesz[0][0]\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "hogyesz_info_insert",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def hogyesz_info_insert():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT values_of_hogyesz  FROM szovegek WHERE id = 1\")\n    values_of_hogyesz  = cur.fetchall()\n    values_of_hogyesz  = values_of_hogyesz[0][0]\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]\n    ins = cur.execute(f\"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', '{kikapcsolodas_motor}')\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "change_password",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def change_password():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT password FROM login WHERE name = '{session['user']}'\")\n    password_in_db = cur.fetchall()\n    old_name = session[\"user\"]\n    new_password = request.form['new_password']\n    old_password = request.form['old_password']\n    old_password_in_hash = normal_to_hash(old_password, \"UTF-8\")\n    password_in_db = password_in_db[0][0]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "change_name",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def change_name():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    old_name = session[\"user\"]\n    new_name = request.form['new_name']\n    ins = cur.execute(f\"UPDATE login SET name = '{new_name}' WHERE name = '{old_name}'\")\n    con.commit()\n    session.pop(\"user\", None)\n    flash(\"Sikeres kijelentkezés.\", \"success\")\n    return redirect(url_for(\"login_page\"))",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    username_in_html = request.form['username']\n    logged_in_username = username_in_html\n    password_in_html = request.form['password']\n    password_hash = hashlib.sha256(password_in_html.encode(\"UTF-8\")).hexdigest()\n    username_in_html_felesleggel = f\"('{username_in_html}',)\"\n    password_hash_felesleggel = f\"('{password_in_html}',)\"\n    # Hitelesítés az előre megadott adatokkal",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def dashboard():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT values_of_hogyesz FROM szovegek WHERE id = 1\")\n    hogyesz_ertekei = cur.fetchall()\n    hogyesz_ertekei = hogyesz_ertekei[0][0]\n    if \"user\" not in session:\n        flash(\"Először jelentkezz be!\", \"error\")\n        return redirect(url_for(\"index\"))\n    return render_template(\"aloldalak/admin/dashboard.html\", user=session[\"user\"], hogyesz_ertekei=hogyesz_ertekei)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "admin_motor",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def admin_motor():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]\n    if \"user\" not in session:\n        flash(\"Először jelentkezz be!\", \"error\")\n        return redirect(url_for(\"index\"))\n    return render_template(\"aloldalak/admin/moto.html\", user=session[\"user\"], kikapcsolodas_motor=kikapcsolodas_motor)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "admin_info",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def admin_info():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    info_hogyesz = cur.fetchall()\n    info_hogyesz = info_hogyesz[0][0]\n    if \"user\" not in session:\n        flash(\"Először jelentkezz be!\", \"error\")\n        return redirect(url_for(\"index\"))\n    return render_template(\"aloldalak/admin/info.html\", user=session[\"user\"], info_hogyesz=info_hogyesz)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "change_data",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def change_data():\n    if \"user\" not in session:\n        flash(\"Először jelentkezz be!\", \"error\")\n        return redirect(url_for(\"index\"))\n    return render_template(\"aloldalak/admin/change_data.html\", user=session[\"user\"])\n@app.route(\"/login_page\")\ndef login_page():\n    return render_template(\"aloldalak/admin/login.html\")\n# Kijelentkezés\n@app.route(\"/logout\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login_page",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login_page():\n    return render_template(\"aloldalak/admin/login.html\")\n# Kijelentkezés\n@app.route(\"/logout\")\ndef logout():\n    session.pop(\"user\", None)\n    flash(\"Sikeres kijelentkezés.\", \"success\")\n    return redirect(url_for(\"index\"))\n#=======================================================================================================\napp.template_folder = 'templates'",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "logout",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def logout():\n    session.pop(\"user\", None)\n    flash(\"Sikeres kijelentkezés.\", \"success\")\n    return redirect(url_for(\"index\"))\n#=======================================================================================================\napp.template_folder = 'templates'\napp.static_folder = 'static'\n@app.route('/')\ndef index():\n    #print(title, description)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n    #print(title, description)\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT title FROM esemenyek\")\n    title = cur.fetchall()\n    title = title[0][0]\n    cur.execute(f\"SELECT description FROM esemenyek\")\n    description = cur.fetchall()\n    description = description[0][0]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "info",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def info():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT info_of_hogyesz FROM szovegek WHERE id = 1\")\n    hogyesz_info = cur.fetchall()\n    hogyesz_info = hogyesz_info[0][0]\n    return render_template('aloldalak/info.html', hogyesz_info=hogyesz_info)\n@app.route('/galeria')\ndef galeria():\n    return render_template('aloldalak/galery.html')",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "galeria",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def galeria():\n    return render_template('aloldalak/galery.html')\n@app.route('/kikapcsolodasi_lehetosegek')\ndef kikapcsolodasi_lehetosegek():\n    return render_template('aloldalak/kikapcs.html')\n@app.route('/elerhetosegek')\ndef elerhetosegek():\n    return render_template('aloldalak/elerhetosegek.html')\n@app.route('/send_message')\ndef sand_message():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "kikapcsolodasi_lehetosegek",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def kikapcsolodasi_lehetosegek():\n    return render_template('aloldalak/kikapcs.html')\n@app.route('/elerhetosegek')\ndef elerhetosegek():\n    return render_template('aloldalak/elerhetosegek.html')\n@app.route('/send_message')\ndef sand_message():\n    return render_template('aloldalak/sand_message.html')\n@app.route('/kepek/furdo')\ndef furdo():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "elerhetosegek",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def elerhetosegek():\n    return render_template('aloldalak/elerhetosegek.html')\n@app.route('/send_message')\ndef sand_message():\n    return render_template('aloldalak/sand_message.html')\n@app.route('/kepek/furdo')\ndef furdo():\n    return render_template('aloldalak/imagepage/furdo.html')\n@app.route('/kepek/kint')\ndef kint():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "sand_message",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def sand_message():\n    return render_template('aloldalak/sand_message.html')\n@app.route('/kepek/furdo')\ndef furdo():\n    return render_template('aloldalak/imagepage/furdo.html')\n@app.route('/kepek/kint')\ndef kint():\n    return render_template('aloldalak/imagepage/kint.html')\n@app.route('/kepek/konyha')\ndef konyha():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "furdo",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def furdo():\n    return render_template('aloldalak/imagepage/furdo.html')\n@app.route('/kepek/kint')\ndef kint():\n    return render_template('aloldalak/imagepage/kint.html')\n@app.route('/kepek/konyha')\ndef konyha():\n    return render_template('aloldalak/imagepage/konyha.html')\n@app.route('/kepek/nappali')\ndef nappali():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "kint",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def kint():\n    return render_template('aloldalak/imagepage/kint.html')\n@app.route('/kepek/konyha')\ndef konyha():\n    return render_template('aloldalak/imagepage/konyha.html')\n@app.route('/kepek/nappali')\ndef nappali():\n    return render_template('aloldalak/imagepage/nappali.html')\n@app.route('/kepek/szoba')\ndef szoba():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "konyha",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def konyha():\n    return render_template('aloldalak/imagepage/konyha.html')\n@app.route('/kepek/nappali')\ndef nappali():\n    return render_template('aloldalak/imagepage/nappali.html')\n@app.route('/kepek/szoba')\ndef szoba():\n    return render_template('aloldalak/imagepage/szoba.html')\n@app.route('/kepek/telikert')\ndef telikert():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "nappali",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def nappali():\n    return render_template('aloldalak/imagepage/nappali.html')\n@app.route('/kepek/szoba')\ndef szoba():\n    return render_template('aloldalak/imagepage/szoba.html')\n@app.route('/kepek/telikert')\ndef telikert():\n    return render_template('aloldalak/imagepage/telikert.html')\n@app.route('/kepek/udvar')\ndef udvar():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "szoba",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def szoba():\n    return render_template('aloldalak/imagepage/szoba.html')\n@app.route('/kepek/telikert')\ndef telikert():\n    return render_template('aloldalak/imagepage/telikert.html')\n@app.route('/kepek/udvar')\ndef udvar():\n    return render_template('aloldalak/imagepage/udvar.html')\n@app.route('/segitseg')\ndef segitseg():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "telikert",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def telikert():\n    return render_template('aloldalak/imagepage/telikert.html')\n@app.route('/kepek/udvar')\ndef udvar():\n    return render_template('aloldalak/imagepage/udvar.html')\n@app.route('/segitseg')\ndef segitseg():\n    return render_template('aloldalak/help.html')\n@app.route('/kikapcsolodasi_lehetosegek/motorozas')\ndef motorozas():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "udvar",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def udvar():\n    return render_template('aloldalak/imagepage/udvar.html')\n@app.route('/segitseg')\ndef segitseg():\n    return render_template('aloldalak/help.html')\n@app.route('/kikapcsolodasi_lehetosegek/motorozas')\ndef motorozas():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "segitseg",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def segitseg():\n    return render_template('aloldalak/help.html')\n@app.route('/kikapcsolodasi_lehetosegek/motorozas')\ndef motorozas():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]\n    return render_template('aloldalak/moto.html', kikapcsolodas_motor=kikapcsolodas_motor)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "motorozas",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def motorozas():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1\")\n    kikapcsolodas_motor = cur.fetchall()\n    kikapcsolodas_motor = kikapcsolodas_motor[0][0]\n    return render_template('aloldalak/moto.html', kikapcsolodas_motor=kikapcsolodas_motor)\n@app.route('/sport')\ndef sport():\n    return render_template('aloldalak/sport.html')",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "sport",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def sport():\n    return render_template('aloldalak/sport.html')\nif __name__ == '__main__':\n    app.run(debug=True)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "password_in_hash_1",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "password_in_hash_1 = \"b909abf3d9725ca479f74046b6a1235b973021bb3da7b8e212c113da8a4c86e6\"\npassword_in_hash_2 = \"9ad025d4631deee59e4d7d881d97f615f7cdb91a8ce639ab651ca445d431ef6b\"\npassword_in_hash_3 = \"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92\"\ncon = sqlite3.connect(\"db/login.db\")\ncur = con.cursor()\ntry:\n    cur.execute(\"CREATE TABLE login(id INT PRIMARY KEY ,name, password)\")\n    ins = cur.execute(f\"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Dani', '{password_in_hash_2}')\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "password_in_hash_2",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "password_in_hash_2 = \"9ad025d4631deee59e4d7d881d97f615f7cdb91a8ce639ab651ca445d431ef6b\"\npassword_in_hash_3 = \"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92\"\ncon = sqlite3.connect(\"db/login.db\")\ncur = con.cursor()\ntry:\n    cur.execute(\"CREATE TABLE login(id INT PRIMARY KEY ,name, password)\")\n    ins = cur.execute(f\"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Dani', '{password_in_hash_2}')\")\n    con.commit()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "password_in_hash_3",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "password_in_hash_3 = \"8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92\"\ncon = sqlite3.connect(\"db/login.db\")\ncur = con.cursor()\ntry:\n    cur.execute(\"CREATE TABLE login(id INT PRIMARY KEY ,name, password)\")\n    ins = cur.execute(f\"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Dani', '{password_in_hash_2}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}')\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "con",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "con = sqlite3.connect(\"db/login.db\")\ncur = con.cursor()\ntry:\n    cur.execute(\"CREATE TABLE login(id INT PRIMARY KEY ,name, password)\")\n    ins = cur.execute(f\"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Dani', '{password_in_hash_2}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}')\")\n    con.commit()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "cur",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "cur = con.cursor()\ntry:\n    cur.execute(\"CREATE TABLE login(id INT PRIMARY KEY ,name, password)\")\n    ins = cur.execute(f\"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Dani', '{password_in_hash_2}')\")\n    con.commit()\n    ins = cur.execute(f\"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}')\")\n    con.commit()\nexcept:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\napp.secret_key = \"szupertitkoskulcs\"  # Ezt cseréld le egy erősebb kulcsra!\n# Előre meghatározott felhasználónév és jelszó\n# Főoldal (index)\ncur.execute(f\"SELECT values_of_hogyesz FROM szovegek WHERE id = 1\")\nhogyesz_ertekei = cur.fetchall()\nhogyesz_ertekei = hogyesz_ertekei[0][0]\nhogyesz_ertekei_is_on = False\n@app.route(\"/add_to_db\", methods=[\"POST\"])\ndef add_to_db():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.secret_key",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.secret_key = \"szupertitkoskulcs\"  # Ezt cseréld le egy erősebb kulcsra!\n# Előre meghatározott felhasználónév és jelszó\n# Főoldal (index)\ncur.execute(f\"SELECT values_of_hogyesz FROM szovegek WHERE id = 1\")\nhogyesz_ertekei = cur.fetchall()\nhogyesz_ertekei = hogyesz_ertekei[0][0]\nhogyesz_ertekei_is_on = False\n@app.route(\"/add_to_db\", methods=[\"POST\"])\ndef add_to_db():\n    con = sqlite3.connect(\"db/login.db\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "hogyesz_ertekei",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "hogyesz_ertekei = cur.fetchall()\nhogyesz_ertekei = hogyesz_ertekei[0][0]\nhogyesz_ertekei_is_on = False\n@app.route(\"/add_to_db\", methods=[\"POST\"])\ndef add_to_db():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    title_in_html = request.form['title']\n    description_in_html = request.form['description']\n    if title_in_html == \"\" or description_in_html == \"\":",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "hogyesz_ertekei",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "hogyesz_ertekei = hogyesz_ertekei[0][0]\nhogyesz_ertekei_is_on = False\n@app.route(\"/add_to_db\", methods=[\"POST\"])\ndef add_to_db():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    title_in_html = request.form['title']\n    description_in_html = request.form['description']\n    if title_in_html == \"\" or description_in_html == \"\":\n        error_message = \"A mezők kitöltése kötelező!\"",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "hogyesz_ertekei_is_on",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "hogyesz_ertekei_is_on = False\n@app.route(\"/add_to_db\", methods=[\"POST\"])\ndef add_to_db():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    title_in_html = request.form['title']\n    description_in_html = request.form['description']\n    if title_in_html == \"\" or description_in_html == \"\":\n        error_message = \"A mezők kitöltése kötelező!\"\n        return redirect(url_for(\"dashboard\", error_message=error_message))",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "logged_in_username",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "logged_in_username = \"\"\n# Bejelentkezés\n@app.route(\"/login\", methods=[\"POST\"])\ndef login():\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    username_in_html = request.form['username']\n    logged_in_username = username_in_html\n    password_in_html = request.form['password']\n    password_hash = hashlib.sha256(password_in_html.encode(\"UTF-8\")).hexdigest()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.template_folder",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.template_folder = 'templates'\napp.static_folder = 'static'\n@app.route('/')\ndef index():\n    #print(title, description)\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT title FROM esemenyek\")\n    title = cur.fetchall()\n    title = title[0][0]",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.static_folder",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.static_folder = 'static'\n@app.route('/')\ndef index():\n    #print(title, description)\n    con = sqlite3.connect(\"db/login.db\")\n    cur = con.cursor()\n    cur.execute(f\"SELECT title FROM esemenyek\")\n    title = cur.fetchall()\n    title = title[0][0]\n    cur.execute(f\"SELECT description FROM esemenyek\")",
+        "detail": "app",
+        "documentation": {}
+    }
+]
