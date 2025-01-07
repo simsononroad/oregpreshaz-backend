@@ -26,7 +26,7 @@ a{
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: rgb(83, 83, 83);
     margin: 0;
     padding: 0;
 }
@@ -38,11 +38,12 @@ h1 {
 }
 
 form {
-    margin: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+
 }
 
 input {
@@ -59,6 +60,12 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    
+    transition: background-color 0.1s ease-in-out;
+    &:hover{
+        transition: background-color 0.1s ease-in-out;
+        background-color: rgb(163, 18, 18);
+    }
 }
 
 button:hover {
@@ -77,12 +84,17 @@ button:hover {
 a{
     color: black;
     text-decoration: none;
-    background-color: gray;
+    background-color: rgb(214, 71, 71);
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
     border-color: #333;
     border-style: solid;
     border: 3px;
+    transition: background-color 0.1s ease-in-out;
+    &:hover{
+        transition: background-color 0.1s ease-in-out;
+        background-color: rgb(163, 18, 18);
+    }
 }
 .nagy_szoveg{
     width: 1800px;
@@ -100,9 +112,12 @@ small{
 }
 
 .login{
-    width: 300px;
-    text-align: center;
-    justify-content: center;
+    padding: 20px;
+    width: 500px;
+    height: 300px;
     border-radius: 100px;
     border: 4px black;
+    background-color: rgb(77, 77, 77);
+    border: 1px solid black;
+    border-radius: 5px;
 }
