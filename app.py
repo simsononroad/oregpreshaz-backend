@@ -27,11 +27,11 @@ con = sqlite3.connect("db/login.db")
 cur = con.cursor()
 try:
     cur.execute("CREATE TABLE login(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, password, perm)")
-    ins = cur.execute(f"insert into login (name, password) values ('Mariann', '{password_in_hash_1}', 'admin')")
+    ins = cur.execute(f"insert into login (name, password, perm) values ('Mariann', '{password_in_hash_1}', 'admin')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('Dani', '{password_in_hash_2}', 'admin')")
+    ins = cur.execute(f"insert into login (name, password, perm) values ('Dani', '{password_in_hash_2}', 'admin')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}', 'admin')")
+    ins = cur.execute(f"insert into login (name, password, perm) values ('Szabolcs', '{password_in_hash_3}', 'admin')")
     con.commit()
 except:
     pass
@@ -328,19 +328,31 @@ def add_people():
     id2 = cur.fetchall()
     cur.execute(f"SELECT name FROM login WHERE id=3")
     id3 = cur.fetchall()
+    cur.execute(f"SELECT perm FROM login")
+    rang_db = cur.fetchall()
+    
+    
     
     username_in_html = request.form["new_name"]
     password_in_html = request.form["new_password"]
+    rang = request.form["rang"]
     password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
-    
-    
     user = session["user"]
+    cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
+    user_with_rang = cur.fetchall()
+    print(user_with_rang[0][0])
+    
+    
+    
     print(user)
-    if user == "Dani":
-        cur.execute(f"INSERT into new_people (name, password, uploader) values ('{username_in_html}', '{password_hash}', '{user}')")
+    if user_with_rang[0][0] == "admin":
+        
+        cur.execute(f"INSERT into login (name, password, perm) values ('{username_in_html}', '{password_hash}', '{rang}')")
         con.commit()
-        cur.execute(f"INSERT into login (name, password) values ('{username_in_html}', '{password_hash}')")
-        con.commit()
+    elif user_with_rang[0][0] == "alap":
+        print("Nincs jogod ehhez a művelethez!")
+    else:
+        print('nem eggyezik')
 
     
     
