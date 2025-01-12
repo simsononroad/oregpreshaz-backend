@@ -26,12 +26,12 @@ password_in_hash_3 = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923a
 con = sqlite3.connect("db/login.db")
 cur = con.cursor()
 try:
-    cur.execute("CREATE TABLE login(id INT PRIMARY KEY ,name, password)")
-    ins = cur.execute(f"insert into login (name, password) values ('Mariann', '{password_in_hash_1}')")
+    cur.execute("CREATE TABLE login(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, password, perm)")
+    ins = cur.execute(f"insert into login (name, password) values ('Mariann', '{password_in_hash_1}', 'admin')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('Dani', '{password_in_hash_2}')")
+    ins = cur.execute(f"insert into login (name, password) values ('Dani', '{password_in_hash_2}', 'admin')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}')")
+    ins = cur.execute(f"insert into login (name, password) values ('Szabolcs', '{password_in_hash_3}', 'admin')")
     con.commit()
 except:
     pass
@@ -39,6 +39,12 @@ except:
 # Táblák létrehozása
 try:
     cur.execute("CREATE TABLE esemenyek(id INT PRIMARY KEY ,title, description, date, people)")
+    ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
+    con.commit()
+except:
+    pass
+try:
+    cur.execute("CREATE TABLE new_people(id INTEGER PRIMARY KEY AUTOINCREMENT,name, password, uploader)")
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
     con.commit()
 except:
@@ -303,6 +309,63 @@ def admin_info():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/info.html", user=session["user"], info_hogyesz=info_hogyesz)
+
+
+
+
+
+
+@app.route("/add_people", methods=["POST"])
+def add_people():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT name FROM login WHERE id=1")
+    id1 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=2")
+    id2 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=3")
+    id3 = cur.fetchall()
+    
+    username_in_html = request.form["new_name"]
+    password_in_html = request.form["new_password"]
+    password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
+    
+    
+    user = session["user"]
+    print(user)
+    if user == "Dani":
+        cur.execute(f"INSERT into new_people (name, password, uploader) values ('{username_in_html}', '{password_hash}', '{user}')")
+        con.commit()
+        cur.execute(f"INSERT into login (name, password) values ('{username_in_html}', '{password_hash}')")
+        con.commit()
+
+    
+    
+    
+    
+    
+    return redirect(url_for("add_people_web"))
+
+
+
+
+
+
+@app.route("/admin/add_people")
+def add_people_web():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    
+    
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    
+    return render_template("aloldalak/admin/add_people.html", user=session["user"])
+    
 
 
 @app.route("/changedata")

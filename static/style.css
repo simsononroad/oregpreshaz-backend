@@ -853,7 +853,7 @@ form {
 .admin_input{
     border: 0px;
     background-color: rgba(255, 255, 255, 0);
-    width: 100rem;
+    width: auto;
     height: 2rem;
     padding-top: 0px;
     border-radius: 5px;
@@ -924,4 +924,9 @@ form {
     border-left: 2px black solid;
     border-bottom: 2px black solid;
     font-size: 30px;
+}
+
+
+.admin_peopleadd_div{
+    width: 500px;
 }

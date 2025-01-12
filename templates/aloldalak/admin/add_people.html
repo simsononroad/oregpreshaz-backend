@@ -1,0 +1,13 @@
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block content %}
+
+<div class="admin_peopleadd_div">
+<form action="/add_people" method="post">
+    <input placeholder="felhasználónév" type="text" name="new_name" class="admin_input" id=""><br>
+    <input placeholder="Jelszó" type="text" name="new_password" class="admin_input" id=""><br>
+    <input placeholder="rang: admin/alap" type="text" name="new_password" class="admin_input" id=""><br>
+    <input type="submit" value="Módosítás" class="btn">
+</form>
+</div>
+
+{% endblock %}

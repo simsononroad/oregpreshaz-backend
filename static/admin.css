@@ -121,3 +121,7 @@ small{
     border: 1px solid black;
     border-radius: 5px;
 }
+
+.admin_peopleadd_div{
+    width: 500px;
+}
