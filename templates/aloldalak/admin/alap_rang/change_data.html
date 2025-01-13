@@ -1,0 +1,19 @@
+{%extends "aloldalak/admin/alap_rang/admin_base.html" %}
+{% block content %}
+<body>
+    <h1>Felhasználónév megváltoztatása</h1>
+    <form action="/change_name" method="post">
+        <input placeholder="Új felhasználónév" type="text" name="new_name" class="admin_input" id=""><br>
+        <input type="submit" value="Módosítás">
+    </form>
+    <h1>Jelszó megváltoztatása</h1>
+    <form action="/change_datas" method="post">
+        <input placeholder="Régi jelszó" type="password" name="old_password" id="" class="admin_input"><br>
+        <input placeholder="Új jelszó" type="password" name="new_password" id="" class="admin_input"><br>
+        <input type="submit" value="Módosítás">
+    </form>
+    {{ error_message }}
+    
+</body>
+</html>
+{% endblock %}

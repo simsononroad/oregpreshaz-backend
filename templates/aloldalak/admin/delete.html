@@ -1,0 +1,9 @@
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block content %}
+<div class="admin_peopleadd_div">
+    <form action="/del_people" method="post">
+        <input placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id=""><br>
+        <input type="submit" value="Törlés" class="btn">
+    </form>
+</div>
+{% endblock %}
