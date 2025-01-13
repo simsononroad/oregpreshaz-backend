@@ -501,7 +501,17 @@ def del_people():
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     
+    cur.execute(f"SELECT name FROM login WHERE id=1")
+    id1 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=2")
+    id2 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=3")
+    id3 = cur.fetchall()
+    
     user_to_del = request.form["del_name"]
+    if user_to_del == id1[0][0] or user_to_del == id2[0][0] or user_to_del == id3[0][0]:
+        print("Ezeket a felhasználókat nem törölheti.")
+        return redirect(url_for("dashboard"))
     
     ins = cur.execute(f"DELETE FROM login WHERE name='{user_to_del}'")
     con.commit()
