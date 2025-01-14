@@ -1,0 +1,31 @@
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block content %}
+
+<div class="admin_peopleadd_div">
+<form action="/add_stat" method="post">
+    <input placeholder="felhasználóneve" type="text" name="username" class="admin_input" id=""><br>
+    <input placeholder="Hány napot tartózkodik itt a vendég? pl.:3" type="text" name="days" class="admin_input" id=""><br>
+    <textarea placeholder="" type="text" name="date" class="admin_input" id="datebe"></textarea><br>
+    <input type="submit" value="Közzététel" class="btn">
+</form>
+</div>
+
+<script>
+
+    const kitoltes = "."
+    const now = new Date();
+
+    const year = now.getFullYear();    // Év
+    const month = now.getMonth() + 1;  // Hónap (0-indexelt, ezért hozzáadunk 1-et)
+    const day = now.getDate();         // Nap
+
+    const hours = now.getHours();      // Óra
+    const minutes = now.getMinutes();  // Perc
+    const seconds = now.getSeconds();  // Másodperc
+
+    console.log(`Dátum: ${year}-${month}-${day}`);
+    datebe = document.getElementById("datebe").innerHTML = year + kitoltes + month + kitoltes + day ;
+
+</script>
+
+{% endblock %}

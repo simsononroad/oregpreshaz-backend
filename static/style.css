@@ -930,3 +930,30 @@ form {
 .admin_peopleadd_div{
     width: 500px;
 }
+
+.minden{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 90vh;
+    padding: 10px;
+}
+
+.stat{
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
+.chat{
+    width: 500px;
+    height: 500px;
+    background-color: gray;
+    border-radius: 10px;
+    
+}

@@ -44,7 +44,7 @@ try:
 except:
     pass
 try:
-    cur.execute("CREATE TABLE new_people(id INTEGER PRIMARY KEY AUTOINCREMENT,name, password, uploader)")
+    cur.execute("CREATE TABLE user(id INTEGER PRIMARY KEY AUTOINCREMENT,name, password, days, date)")
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', ' ', ' ', ' ', ' ')")
     con.commit()
 except:
@@ -87,7 +87,10 @@ def add_to_db():
     people = session["user"]
     ins = cur.execute(f"INSERT OR REPLACE INTO esemenyek (id, title, description, date, people) values ('1', '{title_in_html}', '{description_in_html}', '{nowdate}', '{people}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -113,7 +116,10 @@ def value_of_hogyesz():
 
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{value_of_hogyesz_in_html}', '{info_of_hogyesz}', '{kikapcsolodas_motor}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -134,7 +140,10 @@ def value_of_hogyesz_insert_text():
     kikapcsolodas_motor = kikapcsolodas_motor[0][0]
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik.', '{info_of_hogyesz}', '{kikapcsolodas_motor}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -167,7 +176,10 @@ def kikapcs_motor():
 
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz }', '{info_of_hogyesz}', '{kikapcsolodas_motor_html}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -189,7 +201,10 @@ def kikapcs_motor_insert():
     values_of_hogyesz = values_of_hogyesz[0][0]
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', '{info_of_hogyesz}', 'Itt Hőgyészen és környékén minden motoros megtalálhatja a motorozásához szükséges környezetet. Pl: a crossosok el tudnak menni a zombai mxTrack-re. Az utcai motorosok felfedezhetik Hőgyész környékét . Az endurosok egyből a vendégház mellett kezdhetik a motorozást mivel a vendégház az utca legvégén található, onnan tovább földesút vezet.')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -218,7 +233,10 @@ def hogyesz_info():
 
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz }', '{info_hogyesz_html}', '{kikapcsolodas_motor}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -238,7 +256,10 @@ def hogyesz_info_insert():
     kikapcsolodas_motor = kikapcsolodas_motor[0][0]
     ins = cur.execute(f"INSERT OR REPLACE INTO szovegek (id, values_of_hogyesz, info_of_hogyesz, kikapcsolodas_motor) values ('1', '{values_of_hogyesz}', 'Hőgyész a Tolnai- Hegyhát déli részén a Kapos- folyó mellett húzódó Donát - patak völgyében, szép természeti. környezetben fekszik. Wosinsky Mór, az ősi élet kiváló kutatója által feltárt régészeti leletek bizonyítják, hogy a terület a kőkorszakban meg a bronzkorban is lakott volt. A X. szd-ban Tevel hercegnek , aki Árpád fejedelem unokája volt , a jelenlegi Tevel község területén birtokolt , elődeink hermelin prémmel adóztak neki. A hölgymenyétet vadászókat hölgyészeknek nevezték, ebből alakult ki a község neve : HŐGYÉSZ. Az újkori Hőgyész alapítója : gr. Claudius Florimudus Mercy, a török kiűzésénél játszott szerepet. A Mercyek három generációja 50 évig élt a településen és a németek betelepítésénél nagy szerepük volt. Idejükben épült a kastély és az uradalmi épületek nagy része és a csicsói kápolna is akkor épült. Mezővárossá tették Hőgyészt, a Linnia-Fabrika létrehozása országos hírű volt. 1773-ban a Mercy család eladta az uradalmat az Apponyiaknak, akiknek 6 generációja 150 évig birtokolta a területet. A felvilágosult család iskolákat / elemi isk., latin isk., zene isk. / működtetett, kórházaz építtetett, templomot adott a falunak. A településen négy népcsoport / magyarok, németek, székelyek, cigányok/ együtt és közösen őrzik hagyományaikat. A település kisvárosi jellegét a grófok építette épületek és terek adják , melyeket kiváló művészek alkotásai díszítenek. A szép környezet, a természeti és épített látnivalók komoly turisztikai vonzerőt jelentenek. A csicsói zarándoklat mellett túraútvonalak nyújtanak barEnglishási lehetőséget. Négy napraforgós szálláshelyek gondtalan pihenést kínálnak.', '{kikapcsolodas_motor}')")
     con.commit()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -318,7 +339,10 @@ def login():
         return redirect(url_for("login_page"))
     session["user"] = username_in_html
     flash("Sikeres bejelentkezés!", "success")
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -381,7 +405,10 @@ def dashboard():
     cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
     hogyesz_ertekei = cur.fetchall()
     hogyesz_ertekei = hogyesz_ertekei[0][0]
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if "user" not in session:
@@ -399,7 +426,10 @@ def admin_motor():
     cur.execute(f"SELECT kikapcsolodas_motor FROM szovegek WHERE id = 1")
     kikapcsolodas_motor = cur.fetchall()
     kikapcsolodas_motor = kikapcsolodas_motor[0][0]
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if "user" not in session:
@@ -420,7 +450,10 @@ def admin_info():
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -453,7 +486,10 @@ def add_people():
     password_in_html = request.form["new_password"]
     rang = request.form["rang"]
     password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
 
@@ -467,7 +503,10 @@ def add_people():
     else:
         print('nem eggyezik')
 
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -485,7 +524,10 @@ def delete_people():
     cur = con.cursor()
     
     
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -516,7 +558,10 @@ def del_people():
     ins = cur.execute(f"DELETE FROM login WHERE name='{user_to_del}'")
     con.commit()
     
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -535,7 +580,10 @@ def add_people_web():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -552,7 +600,10 @@ def change_data():
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
-    user = session["user"]
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
     if user_with_rang[0][0] == "alap":
@@ -560,9 +611,130 @@ def change_data():
     else:
         return render_template("aloldalak/admin/change_data.html", user=session["user"])
 
+
+@app.route("/add_stat_page")
+def add_stat_page():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    return render_template("aloldalak/admin/add_stat.html")
+    
+@app.route("/add_stat", methods=["POST"])
+def add_stat():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    username_in_html = request.form["username"]
+    day_in_html = int(request.form["days"])
+    date_in_html = request.form["date"]
+
+
+    cur.execute(f"SELECT days FROM user WHERE name='{username_in_html}'")
+    days = cur.fetchall()
+    try:
+        days = int(days[0][0])
+        day = days + day_in_html
+        ins = cur.execute(f"UPDATE user SET days = '{day}' WHERE name='{username_in_html}'")
+        con.commit()
+        ins = cur.execute(f"UPDATE user SET date = '{date_in_html}' WHERE name='{username_in_html}'")
+        con.commit()
+    except:
+        print("Nincs ilyen felhasználónévvel ember")
+    print(days)
+    
+    
+    
+    return redirect(url_for("add_stat_page"))
+    
+
+
+
+
+
+
+
 @app.route("/login_page")
 def login_page():
     return render_template("aloldalak/admin/login.html")
+
+#Saját felhasználói profil
+
+
+@app.route("/user_dashboard")
+def user_dashboard():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    if "user_p" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    cur.execute(f"SELECT days FROM user WHERE name='{session["user_p"]}'")
+    days = cur.fetchall()
+    cur.execute(f"SELECT date FROM user WHERE name='{session["user_p"]}'")
+    date = cur.fetchall()
+    return render_template("aloldalak/user/dashboard.html", days=days, date=date)
+
+@app.route("/user_page")
+def user_page():
+    return render_template("aloldalak/user_page.html")
+
+@app.route("/user_login", methods=["POST"])
+def user_login():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    username_in_html = request.form['username']
+    logged_in_username = username_in_html
+    password_in_html = request.form['password']
+    password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
+    username_in_html_felesleggel = f"('{username_in_html}',)"
+    password_hash_felesleggel = f"('{password_in_html}',)"
+    cur.execute(f"SELECT name, password FROM user WHERE name = \"{username_in_html}\"")
+    login_in_db = cur.fetchall()
+    
+    if len(login_in_db) == 0:
+        flash("Helytelen felhasználónév vagy jelszó.", "error")  
+        return redirect(url_for("login_page"))
+    if login_in_db[0][1] != password_hash:
+        flash("Helytelen felhasználónév vagy jelszó.", "error")
+        return redirect(url_for("login_page"))
+    session["user_p"] = username_in_html
+    flash("Sikeres bejelentkezés!", "success")
+    return redirect(url_for("user_dashboard"))
+
+    
+
+@app.route("/user_register", methods=["POST"])
+def user_register():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT name FROM login WHERE id=1")
+    id1 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=2")
+    id2 = cur.fetchall()
+    cur.execute(f"SELECT name FROM login WHERE id=3")
+    id3 = cur.fetchall()
+    cur.execute(f"SELECT perm FROM login")
+    rang_db = cur.fetchall()
+
+    username_in_html = request.form["username"]
+    password_in_html = request.form["password"]
+    password_hash = hashlib.sha256(password_in_html.encode("UTF-8")).hexdigest()
+    cur.execute(f"INSERT into user (name, password, days) values ('{username_in_html}', '{password_hash}', '0')")
+    con.commit()
+    session["user_p"] = username_in_html
+    return redirect(url_for("user_dashboard"))
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Kijelentkezés
@@ -611,6 +783,7 @@ def info():
     hogyesz_info = cur.fetchall()
     hogyesz_info = hogyesz_info[0][0]
     return render_template('aloldalak/info.html', hogyesz_info=hogyesz_info)
+
 
 @app.route('/galeria')
 def galeria():

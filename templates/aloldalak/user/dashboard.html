@@ -1,0 +1,24 @@
+{% extends 'aloldalak/user/base.html' %}
+{% block title %}Elérhetőségek{% endblock %}
+{% block content %}
+
+
+<div class="minden">
+    <div class="stat">
+        <p>Eddig eltöltött napok a vendégházban: {{ days[0][0] }}</p>
+        <p>Legutóbbi tartózkodásának időpontja: {{ date[0][0] }}</p>
+    </div>
+    <space style="width: 20px;"></space>
+    <div class="chat">
+        <ul>
+            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid!</li>
+            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid!</li>
+            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid!</li>
+            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, aliquid!</li>
+        </ul>
+        <center><input type="text" placeholder="Üzenet"></center>
+    </div>
+</div>
+
+
+{% endblock %}

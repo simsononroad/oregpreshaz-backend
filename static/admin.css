@@ -38,11 +38,8 @@ h1 {
 }
 
 form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
+    padding-right: 10px;
+    padding-left: 10px;
 
 }
 
@@ -124,4 +121,14 @@ small{
 
 .admin_peopleadd_div{
     width: 500px;
+}
+
+
+.login_register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+
 }
