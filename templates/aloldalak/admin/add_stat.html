@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="admin_peopleadd_div">
+    <p style="font-size: larger; font-weight: bold;">Felhasználónevek: {{ name }}</p>
 <form action="/add_stat" method="post">
     <input placeholder="felhasználóneve" type="text" name="username" class="admin_input" id=""><br>
     <input placeholder="Hány napot tartózkodik itt a vendég? pl.:3" type="text" name="days" class="admin_input" id=""><br>

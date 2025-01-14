@@ -614,10 +614,18 @@ def change_data():
 
 @app.route("/add_stat_page")
 def add_stat_page():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
-    return render_template("aloldalak/admin/add_stat.html")
+    cur.execute(f"SELECT name FROM user")
+    names = cur.fetchall()
+    b_name = ""
+    for name in names:
+        b_name += f"{name[0]}, "
+    b_name = b_name[:-2]
+    return render_template("aloldalak/admin/add_stat.html", name=b_name)
     
 @app.route("/add_stat", methods=["POST"])
 def add_stat():
@@ -633,6 +641,7 @@ def add_stat():
 
     cur.execute(f"SELECT days FROM user WHERE name='{username_in_html}'")
     days = cur.fetchall()
+    
     try:
         days = int(days[0][0])
         day = days + day_in_html
