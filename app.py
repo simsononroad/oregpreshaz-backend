@@ -597,7 +597,7 @@ def add_people_web():
 def change_data():
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
-    if "user" not in session:
+    if "user" not in session or "user_p" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     try:
@@ -610,6 +610,27 @@ def change_data():
         return redirect(url_for("alap_dashboard"))
     else:
         return render_template("aloldalak/admin/change_data.html", user=session["user"])
+    
+
+
+
+@app.route("/user/changedata")
+def user_change_data():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    if "user_p" not in session:
+        flash("Először jelentkezz be!", "error")
+        print("először jelentkezz be")
+        return redirect(url_for("index"))
+    
+    user = session["user_p"]
+    cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
+    user_with_rang = cur.fetchall()
+    return render_template("aloldalak/user/change_data.html", user=session["user_p"])
+
+
+
+
 
 
 @app.route("/add_stat_page")
@@ -675,14 +696,15 @@ def login_page():
 def user_dashboard():
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
+    alap_user = session["user_p"]
     if "user_p" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
-    cur.execute(f"SELECT days FROM user WHERE name='{session["user_p"]}'")
+    cur.execute(f"SELECT days FROM user WHERE name='{alap_user}'")
     days = cur.fetchall()
-    cur.execute(f"SELECT date FROM user WHERE name='{session["user_p"]}'")
+    cur.execute(f"SELECT date FROM user WHERE name='{alap_user}'")
     date = cur.fetchall()
-    return render_template("aloldalak/user/dashboard.html", days=days, date=date)
+    return render_template("aloldalak/user/dashboard.html", days=days, date=date, user=alap_user)
 
 @app.route("/user_page")
 def user_page():
@@ -857,3 +879,6 @@ def sport():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+#ciganytanoda
