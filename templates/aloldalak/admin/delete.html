@@ -1,9 +1,19 @@
 {% extends "aloldalak/admin/admin_base.html" %}
 {% block content %}
 <div class="admin_peopleadd_div">
+    Felhasználók:
+    {% for i in name_in_user_tb %}
+        <button onclick="ember('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+    {% endfor %}
     <form action="/del_people" method="post">
-        <input placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id=""><br>
+        <textarea placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id="inp"></textarea><br>
         <input type="submit" value="Törlés" class="btn">
     </form>
 </div>
+
+<script>
+    function ember(name){
+        inp = document.getElementById("inp").innerText=name
+    }
+</script>
 {% endblock %}

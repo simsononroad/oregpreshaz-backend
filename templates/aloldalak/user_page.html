@@ -8,10 +8,22 @@
                 <input type="password" name="password" placeholder="Jelszó" required><br>
                 <button type="submit">Bejelentkezés</button>
                 <br>
-                <br>                
+                <br>
+                <a href="/">Vissza</a>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div>
+                        {% for category, message in messages %}
+                            <p class="{{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% endwith %}            
             </div>
+
+            
         </form>
-        <a href="/">Vissza</a>
+        
         <form method="post" action="/user_register">
             <div class="login">
                 <h1>Regisztráció</h1>
@@ -20,9 +32,19 @@
                 <button type="submit">Bejelentkezés</button>
                 <br>
                 <br>
-                
+                <a href="/">Vissza</a>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div>
+                        {% for category, message in messages %}
+                            <p class="{{ category }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% endwith %}
                 
             </div>
+            
         </form>
         <br>
         

@@ -2,13 +2,26 @@
 {% block content %}
 
 <div class="admin_peopleadd_div">
-    <p style="font-size: larger; font-weight: bold;">Felhasználónevek: {{ name }}</p>
+    Felhasználók:
+    {% for i in name_in_user_tb %}
+        <button onclick="ember('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+    {% endfor %}
 <form action="/add_stat" method="post">
-    <input placeholder="felhasználóneve" type="text" name="username" class="admin_input" id=""><br>
-    <input placeholder="Hány napot tartózkodik itt a vendég? pl.:3" type="text" name="days" class="admin_input" id=""><br>
+    <textarea placeholder="felhasználóneve" type="text" name="username" class="admin_input" id="inp"></textarea><br>
+    <label for="days">Hány napot tartózkodik itt a vendég? pl.:3</label>
+    <textarea placeholder="" type="number" name="days" class="admin_input" id=""></textarea><br>
     <textarea placeholder="" type="text" name="date" class="admin_input" id="datebe"></textarea><br>
     <input type="submit" value="Közzététel" class="btn">
 </form>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <div>
+        {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endwith %}
 </div>
 
 <script>
@@ -26,6 +39,13 @@
 
     console.log(`Dátum: ${year}-${month}-${day}`);
     datebe = document.getElementById("datebe").innerHTML = year + kitoltes + month + kitoltes + day ;
+
+    
+    
+    function ember(name){
+        inp = document.getElementById("inp").innerText=name
+    }
+    
 
 </script>
 

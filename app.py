@@ -538,10 +538,16 @@ def delete_people():
         return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
+    cur.execute(f"SELECT name FROM user")
+    name_in_user_tb = cur.fetchall()
+    names_str = ""
+    for names in name_in_user_tb:
+        names_str += f"{names[0]}, "
+    names_str = names_str[:-2]
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return render_template("aloldalak/admin/delete.html", user=session["user"])
+        return render_template("aloldalak/admin/delete.html", user=session["user"], names_str=names_str, name_in_user_tb=name_in_user_tb)
 
 @app.route("/del_people", methods=["POST"])
 def del_people():
@@ -565,6 +571,9 @@ def del_people():
     
     ins = cur.execute(f"DELETE FROM login WHERE name='{user_to_del}'")
     con.commit()
+    ins = cur.execute(f"DELETE FROM user WHERE name='{user_to_del}'")
+    con.commit()
+    
     
     try:
         user = session["user"]
@@ -654,7 +663,9 @@ def add_stat_page():
     for name in names:
         b_name += f"{name[0]}, "
     b_name = b_name[:-2]
-    return render_template("aloldalak/admin/add_stat.html", name=b_name)
+    cur.execute(f"SELECT name FROM user")
+    name_in_user_tb = cur.fetchall()
+    return render_template("aloldalak/admin/add_stat.html", name=b_name, name_in_user_tb=name_in_user_tb)
     
 @app.route("/add_stat", methods=["POST"])
 def add_stat():
@@ -664,13 +675,15 @@ def add_stat():
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     username_in_html = request.form["username"]
-    day_in_html = int(request.form["days"])
+    try:
+        day_in_html = int(request.form["days"])
+    except:
+        flash("Számot adj meg!")
     date_in_html = request.form["date"]
 
 
     cur.execute(f"SELECT days FROM user WHERE name='{username_in_html}'")
     days = cur.fetchall()
-    
     try:
         days = int(days[0][0])
         day = days + day_in_html
@@ -679,8 +692,7 @@ def add_stat():
         ins = cur.execute(f"UPDATE user SET date = '{date_in_html}' WHERE name='{username_in_html}'")
         con.commit()
     except:
-        print("Nincs ilyen felhasználónévvel ember")
-    print(days)
+        flash("Nincs ilyen felhasználónévvel ember")
     
     
     
@@ -698,6 +710,22 @@ def send_message():
     cur.execute(f"INSERT INTO messages (name, message, date, in_one) values ('{user}', '{message_in_html}', '{date}', '{in_one}')")
     con.commit()
     return redirect(url_for("user_dashboard"))
+
+
+
+
+"""
+@app.route('/get_messages', methods=['GET'])
+def get_messages():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    # Return the chat messages as HTML
+    cur.execute(f"SELECT in_one FROM messages")
+    in_one = cur.fetchall()
+    
+
+    return jsonify('<br>'.join(in_one))
+"""
 
 
 
@@ -728,7 +756,7 @@ def login_page():
     return render_template("aloldalak/admin/login.html")
 
 #Saját felhasználói profil
-
+refresh = 0
 
 @app.route("/user_dashboard")
 def user_dashboard():
@@ -744,8 +772,10 @@ def user_dashboard():
     date = cur.fetchall()
     cur.execute(f"SELECT in_one FROM messages")
     in_one = cur.fetchall()
+    print(in_one)
     
-    return render_template("aloldalak/user/dashboard.html", days=days, date=date, user=alap_user, in_one=in_one)
+
+    return render_template("aloldalak/user/dashboard.html", days=days, date=date, user=alap_user, in_one=in_one, refresh=refresh)
 
 @app.route("/user_page")
 def user_page():
@@ -753,6 +783,7 @@ def user_page():
 
 @app.route("/user_login", methods=["POST"])
 def user_login():
+    global refresh
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     username_in_html = request.form['username']
@@ -766,12 +797,13 @@ def user_login():
     
     if len(login_in_db) == 0:
         flash("Helytelen felhasználónév vagy jelszó.", "error")  
-        return redirect(url_for("login_page"))
+        return redirect(url_for("user_page"))
     if login_in_db[0][1] != password_hash:
         flash("Helytelen felhasználónév vagy jelszó.", "error")
-        return redirect(url_for("login_page"))
+        return redirect(url_for("user_page"))
     session["user_p"] = username_in_html
     flash("Sikeres bejelentkezés!", "success")
+    refresh = 1
     return redirect(url_for("user_dashboard"))
 
     

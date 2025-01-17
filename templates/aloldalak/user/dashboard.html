@@ -9,7 +9,7 @@
         <p>Legutóbbi tartózkodásának időpontja: {{ date[0][0] }}</p>
     </div>
     <space style="width: 20px;"></space>
-    <div class="chat ">
+    <div class="chat" id="chat-box">
         <ul>
             {% for minden in in_one%}
                 {{minden[0]}}<br>
@@ -21,5 +21,19 @@
     </div>
 </div>
 
+
+<script>
+    /*// Function to reload the chat content
+    function reloadChat() {
+        fetch('/get_messages')  // Call the Flask route to get messages
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('chat-box').innerHTML = data; // Update the chat-box div
+            });
+    }
+
+    // Set an interval to reload the chat content every 10 seconds
+    setInterval(reloadChat, 10000); // 10000 milliseconds = 10 seconds*/
+</script>
 
 {% endblock %}

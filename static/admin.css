@@ -132,3 +132,29 @@ small{
     height: 100vh;
 
 }
+
+@media (max-width: 1190px){
+    .login_register{
+        display:block;
+        width: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100vh;
+    }
+    
+}
+
+@media (max-width: 555px) {
+    .login{
+        padding: 20px;
+        width: auto;
+        height: auto;
+        border-radius: 100px;
+        border: 4px black;
+        background-color: rgb(77, 77, 77);
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}
