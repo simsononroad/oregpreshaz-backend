@@ -7,6 +7,13 @@ import hashlib
 import sqlite3
 import datetime
 import hashlib
+from datetime import datetime
+
+
+
+now = datetime.now()
+
+
 def normal_to_hash(atalakitando, encode):
     password = atalakitando
     if encode == "":
@@ -26,6 +33,7 @@ password_in_hash_3 = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923a
 con = sqlite3.connect("db/login.db")
 cur = con.cursor()
 try:
+    cur.execute("CREATE TABLE messages(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, message, date, in_one)")
     cur.execute("CREATE TABLE login(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, password, perm)")
     ins = cur.execute(f"insert into login (name, password, perm) values ('Mariann', '{password_in_hash_1}', 'admin')")
     con.commit()
@@ -679,7 +687,17 @@ def add_stat():
     return redirect(url_for("add_stat_page"))
     
 
-
+@app.route("/send_message", methods=["POST"])
+def send_message():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    message_in_html = request.form["message"]
+    user = session["user_p"]
+    date = now.strftime("%Y.%m.%d, %H:%M:%S")
+    in_one = f"{user}: {message_in_html} | {date}"
+    cur.execute(f"INSERT INTO messages (name, message, date, in_one) values ('{user}', '{message_in_html}', '{date}', '{in_one}')")
+    con.commit()
+    return redirect(url_for("user_dashboard"))
 
 
 
@@ -724,7 +742,10 @@ def user_dashboard():
     days = cur.fetchall()
     cur.execute(f"SELECT date FROM user WHERE name='{alap_user}'")
     date = cur.fetchall()
-    return render_template("aloldalak/user/dashboard.html", days=days, date=date, user=alap_user)
+    cur.execute(f"SELECT in_one FROM messages")
+    in_one = cur.fetchall()
+    
+    return render_template("aloldalak/user/dashboard.html", days=days, date=date, user=alap_user, in_one=in_one)
 
 @app.route("/user_page")
 def user_page():
