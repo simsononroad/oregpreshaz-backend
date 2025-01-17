@@ -685,6 +685,26 @@ def add_stat():
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.route("/login_page")
 def login_page():
     return render_template("aloldalak/admin/login.html")
