@@ -29,4 +29,12 @@ function element_del(){
 	var text = document.getElementById("element-text").innerHTML=""
 }
 
+function select_message(message){
+	var inp = document.getElementById("delete_msg")
+	inp.innerText=message
+	
+}
 
+function del(){
+	window.open ('/dashboard#chat-box','_self',false)
+}

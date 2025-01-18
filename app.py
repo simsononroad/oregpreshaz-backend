@@ -414,9 +414,20 @@ def moto_alap():
     return render_template("aloldalak/admin/alap_rang/moto.html", user=session["user"], kikapcsolodas_motor=kikapcsolodas_motor)
     
 
+go_to_chat = True
+
 # Dashboard (csak bejelentkezett felhasználóknak)
-@app.route("/dashboard")
+
+utotag = ""
+if go_to_chat == False:
+    utotag = ""
+elif go_to_chat == True:
+    utotag = "#chat-box"
+print(utotag)
+
+@app.route(f"/dashboard")
 def dashboard():
+    global go_to_chat
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
     cur.execute(f"SELECT values_of_hogyesz FROM szovegek WHERE id = 1")
@@ -428,13 +439,19 @@ def dashboard():
         return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
+    cur.execute(f"SELECT in_one FROM messages")
+    in_one = cur.fetchall()
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei)
+        return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei, in_one=in_one)
+
+
+            
+            
 
 @app.route("/admin/motor")
 def admin_motor():
@@ -529,7 +546,7 @@ def add_people():
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return redirect(url_for("add_people_web"))
+        return redirect(url_for("guest_page"))
 
 
 @app.route("/admin/delete_people")
@@ -575,8 +592,8 @@ def del_people():
     
     user_to_del = request.form["del_name"]
     if user_to_del == id1[0][0] or user_to_del == id2[0][0] or user_to_del == id3[0][0]:
-        print("Ezeket a felhasználókat nem törölheti.")
-        return redirect(url_for("dashboard"))
+        flash("Ezeket a felhasználókat nem törölheti.")
+        return redirect(url_for("guest_page"))
     
     ins = cur.execute(f"DELETE FROM login WHERE name='{user_to_del}'")
     con.commit()
@@ -593,7 +610,7 @@ def del_people():
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return redirect(url_for("delete_people"))
+        return redirect(url_for("guest_page"))
 
 
 @app.route("/admin/add_people")
@@ -619,23 +636,6 @@ def add_people_web():
     
 
 
-@app.route("/changedata")
-def change_data():
-    con = sqlite3.connect("db/login.db")
-    cur = con.cursor()
-    if "user" not in session or "user_p" not in session:
-        flash("Először jelentkezz be!", "error")
-        return redirect(url_for("index"))
-    try:
-        user = session["user"]
-    except:
-        return redirect(url_for("index"))
-    cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
-    user_with_rang = cur.fetchall()
-    if user_with_rang[0][0] == "alap":
-        return redirect(url_for("alap_dashboard"))
-    else:
-        return render_template("aloldalak/admin/change_data.html", user=session["user"])
     
 
 
@@ -659,22 +659,6 @@ def user_change_data():
 
 
 
-@app.route("/add_stat_page")
-def add_stat_page():
-    con = sqlite3.connect("db/login.db")
-    cur = con.cursor()
-    if "user" not in session:
-        flash("Először jelentkezz be!", "error")
-        return redirect(url_for("index"))
-    cur.execute(f"SELECT name FROM user")
-    names = cur.fetchall()
-    b_name = ""
-    for name in names:
-        b_name += f"{name[0]}, "
-    b_name = b_name[:-2]
-    cur.execute(f"SELECT name FROM user")
-    name_in_user_tb = cur.fetchall()
-    return render_template("aloldalak/admin/add_stat.html", name=b_name, name_in_user_tb=name_in_user_tb)
     
 @app.route("/add_stat", methods=["POST"])
 def add_stat():
@@ -705,7 +689,7 @@ def add_stat():
     
     
     
-    return redirect(url_for("add_stat_page"))
+    return redirect(url_for("guest_page"))
     
 
 @app.route("/send_message", methods=["POST"])
@@ -722,6 +706,19 @@ def send_message():
 
 
 
+@app.route("/send_admin_message", methods=["POST"])
+def send_admin_message():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    message_in_html = request.form["message"]
+    user = session["user"]
+    date = now.strftime("%Y.%m.%d, %H:%M:%S")
+    in_one = f"{user}(admin): {message_in_html} | {date}"
+    cur.execute(f"INSERT INTO messages (name, message, date, in_one) values ('{user}', '{message_in_html}', '{date}', '{in_one}')")
+    con.commit()
+    return redirect(url_for("dashboard"))
+
+
 
 """
 @app.route('/get_messages', methods=['GET'])
@@ -735,6 +732,65 @@ def get_messages():
 
     return jsonify('<br>'.join(in_one))
 """
+
+
+
+
+@app.route("/delete_messages", methods=["POST"])
+def delete_message():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    print("s")
+    del_message_html = request.form["delete_message"]
+    print(del_message_html)
+    ins = cur.execute(f"DELETE FROM messages WHERE in_one='{del_message_html}'")
+    con.commit()
+    global go_to_chat
+    go_to_chat = True
+    return redirect(url_for("dashboard"))
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/vendeg")
+def guest_page():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT name FROM user")
+    names = cur.fetchall()
+    b_name = ""
+    for name in names:
+        b_name += f"{name[0]}, "
+    b_name = b_name[:-2]
+    cur.execute(f"SELECT name FROM user")
+    name_in_user_tb = cur.fetchall()
+    cur.execute(f"SELECT name FROM login")
+    name_in_login_tb = cur.fetchall()
+    
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
+    cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
+    user_with_rang = cur.fetchall()
+    if user_with_rang[0][0] == "alap":
+        return redirect(url_for("alap_dashboard"))
+    else:
+        return render_template("aloldalak/admin/vendeg.html", name=b_name, name_in_user_tb=name_in_user_tb, name_in_login_tb=name_in_login_tb)
+    
+    
+
 
 
 

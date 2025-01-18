@@ -1,0 +1,103 @@
+{% extends "aloldalak/admin/admin_base.html" %}
+{% block title %}Vendég{% endblock %}
+
+{% block content %}
+
+<div class="error_message minden1">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div>
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div class="minden1">
+    
+    <div class="add_stat">
+        <center><h1>Adatok hozzáadása</h1></center>
+        <div class="admin_peopleadd_div">
+            Felhasználók:
+            {% for i in name_in_user_tb %}
+                <button onclick="ember('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+            {% endfor %}
+            
+            
+        <form action="/add_stat" method="post">
+            <textarea placeholder="felhasználóneve" type="text" name="username" class="admin_input" id="inpu"></textarea><br>
+            <label for="days">Hány napot tartózkodik itt a vendég? pl.:3</label>
+            <textarea placeholder="" type="number" name="days" class="admin_input" id=""></textarea><br>
+            <textarea placeholder="" type="text" name="date" class="admin_input" id="datebe"></textarea><br>
+            <input type="submit" value="Közzététel" class="btn">
+        </form>
+        
+        </div>
+        
+        <script>
+        
+            const kitoltes = "."
+            const now = new Date();
+        
+            const year = now.getFullYear();    // Év
+            const month = now.getMonth() + 1;  // Hónap (0-indexelt, ezért hozzáadunk 1-et)
+            const day = now.getDate();         // Nap
+        
+            const hours = now.getHours();      // Óra
+            const minutes = now.getMinutes();  // Perc
+            const seconds = now.getSeconds();  // Másodperc
+        
+            console.log(`Dátum: ${year}-${month}-${day}`);
+            datebe = document.getElementById("datebe").innerHTML = year + kitoltes + month + kitoltes + day ;
+        
+            
+            
+            function ember(name){
+                inp = document.getElementById("inpu").innerText=name
+            }
+            
+        
+        </script>
+    </div>
+
+    <div class="add_people">
+        <center><h1>Felhasználó hozzáadása</h1></center>
+        <div class="admin_peopleadd_div">
+            <form action="/add_people" method="post">
+                <input placeholder="felhasználónév" type="text" name="new_name" class="admin_input" id=""><br>
+                <input placeholder="Jelszó" type="text" name="new_password" class="admin_input" id=""><br>
+                <input placeholder="rang: admin/alap" type="text" name="rang" class="admin_input" id=""><br>
+                <input type="submit" value="Hozzáadás" class="btn">
+            </form>
+        </div>
+    </div>
+    
+    <div class="delete_people">
+        <center><h1>Felhasználó törlése</h1></center>
+        <div class="admin_peopleadd_div">
+            Felhasználók:
+            {% for i in name_in_user_tb %}
+                <button onclick="emberek('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+            {% endfor %}
+            {% for i in name_in_login_tb %}
+                <button onclick="emberek('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+            {% endfor %}
+            <form action="/del_people" method="post">
+                <textarea placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id="del_people"></textarea><br>
+                <input type="submit" value="Törlés" class="btn">
+            </form>
+        </div>
+        
+        <script>
+            function emberek(name){
+                inp = document.getElementById("del_people").innerText=name
+            }
+        </script>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -82,6 +82,34 @@
         <div id="bottomw">A weboldalt készítette: Gyuris Dániel<br><a href="https://kokuszgamer.kopaszhegy.hu">Weboldal</a>, <a
                 href="https://youtube.com/@simsononroad">youtube</a>, <a href="https://github.com/simsononroad">Github</a><br>©oregpreshaz.eu</div>
     </div>
+
+    <div class="chat" id="chat-box">
+        <center><h1>Beszélgetés</h1></center>
+        <ul>
+            {% for minden in in_one%}
+                {{minden[0]}} <a onclick="select_message('{{ minden[0] }}')">Kiválaszt</a><br>
+            {% endfor %}
+
+            
+            
+        </ul>
+        
+        <form action="/send_admin_message" method="post">
+            <center class="user_form lent">
+                <input type="text" placeholder="Üzenet" name="message">
+                <button class="admin_button">Küldés</button>
+                <br>
+                <br>
+                
+            </center>
+        </form>
+        <form action="/delete_messages" method="post">
+            <center>
+                <textarea type="text" placeholder="Üzenet" class="del-text" name="delete_message" id="delete_msg"></textarea>
+                <button class="button" onclick="del()">Törlés</button>
+            </center>
+        </form>
+    </div>
 </body>
 
 </html>
