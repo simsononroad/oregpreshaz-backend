@@ -1,5 +1,5 @@
 {% extends 'aloldalak/user/base.html' %}
-{% block title %}Elérhetőségek{% endblock %}
+{% block title %}Kezelőpult{% endblock %}
 {% block content %}
 
  
@@ -9,7 +9,9 @@
         <p>Legutóbbi tartózkodásának időpontja: {{ date[0][0] }}</p>
     </div>
     <space style="width: 20px;"></space>
+
     <div class="chat" id="chat-box">
+        <center><h1>Beszélgetés</h1></center>
         <ul>
             {% for minden in in_one%}
                 {{minden[0]}}<br>

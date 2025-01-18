@@ -940,29 +940,45 @@ form {
     padding: 10px;
 }
 
+@media (max-width: 816px) {
+    .minden{
+        display: block;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 90vh;
+        padding: 10px;
+    }
+}
+
+
 .stat{
-    width: auto;
-    height: auto;
+    max-width: 500px;
+    max-height: 600px;
     background-color: gray;
     border-radius: 10px;
-    padding-top: 21vh;
-    padding-bottom: 21vh;
     padding-right: 20px;
     padding-left: 20px;
+    height: 30vh;
+    text-align: center;
+    justify-content: center;
+    
 
 }
 
 .chat{
-    width: auto;
-    height: auto;
+    max-width: 500px;
+    max-height: 600px;
     background-color: gray;
     border-radius: 10px;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
     padding-right: 20px;
     padding-left: 20px;
     
 }
+
+
+
+
 
 .user_form{
     height: 30vh;

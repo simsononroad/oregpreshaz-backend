@@ -380,6 +380,15 @@ def change_data_alap():
         return redirect(url_for("index"))
     return render_template("aloldalak/admin/alap_rang/change_data.html", user=session["user"])
 
+
+@app.route("/user/change_data")
+def change_data_user():
+    if "user_p" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    return render_template("aloldalak/user/change_data.html", user=session["user_p"])
+
+
 @app.route("/alap/info")
 def info_alap():
     con = sqlite3.connect("db/login.db")
