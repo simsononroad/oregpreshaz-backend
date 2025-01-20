@@ -2,21 +2,22 @@
 {% block title %}Vendég{% endblock %}
 
 {% block content %}
-
-<div class="error_message minden1">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div>
-                {% for category, message in messages %}
-                    <p class="{{ category }}">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-</div>
+<!---->
 
 <div class="minden1">
-    
+
+    <div class="error_message minden1">
+        <p>Hiba / Figyelmeztetés:</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div>
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
     <div class="add_stat">
         <center><h1>Adatok hozzáadása</h1></center>
         <div class="admin_peopleadd_div">
@@ -72,27 +73,38 @@
                 <input type="submit" value="Hozzáadás" class="btn">
             </form>
         </div>
+        <div class="vertical-line"></div>
     </div>
     
     <div class="delete_people">
+        
         <center><h1>Felhasználó törlése</h1></center>
         <div class="admin_peopleadd_div">
             Felhasználók:
-            {% for i in name_in_user_tb %}
-                <button onclick="emberek('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
-            {% endfor %}
             {% for i in name_in_login_tb %}
                 <button onclick="emberek('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
             {% endfor %}
             <form action="/del_people" method="post">
                 <textarea placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id="del_people"></textarea><br>
-                <input type="submit" value="Törlés" class="btn">
+                <input type="submit" value="Alap rangú felhasználó törlése" class="btn">
+            </form>
+            <div class="horizontal-line"></div>
+            Felhasználók:
+            {% for i in name_in_user_tb %}
+                <button onclick="emberekk('{{i[0]}}')" style="background-color: rgba(240, 248, 255, 0); color:white; font-size: large;">{{i[0]}}</button>
+            {% endfor %}
+            <form action="/del_user_people" method="post">
+                <textarea placeholder="felhasználónév" type="text" name="del_name" class="admin_input" id="delete_people"></textarea><br>
+                <input type="submit" value="Regisztrált törlés" class="btn">
             </form>
         </div>
         
         <script>
             function emberek(name){
                 inp = document.getElementById("del_people").innerText=name
+            }
+            function emberekk(name){
+                inp = document.getElementById("delete_people").innerText=name
             }
         </script>
     </div>

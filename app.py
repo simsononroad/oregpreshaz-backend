@@ -597,6 +597,34 @@ def del_people():
     
     ins = cur.execute(f"DELETE FROM login WHERE name='{user_to_del}'")
     con.commit()
+
+    
+    
+    try:
+        user = session["user"]
+    except:
+        return redirect(url_for("index"))
+    cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
+    user_with_rang = cur.fetchall()
+    if user_with_rang[0][0] == "alap":
+        return redirect(url_for("alap_dashboard"))
+    else:
+        return redirect(url_for("guest_page"))
+    
+    
+
+
+@app.route("/del_user_people", methods=["POST"])
+def del_user_people():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+        return redirect(url_for("index"))
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+
+    
+    user_to_del = request.form["del_name"]
+    
     ins = cur.execute(f"DELETE FROM user WHERE name='{user_to_del}'")
     con.commit()
     
@@ -787,7 +815,7 @@ def guest_page():
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return render_template("aloldalak/admin/vendeg.html", name=b_name, name_in_user_tb=name_in_user_tb, name_in_login_tb=name_in_login_tb)
+        return render_template("aloldalak/admin/guest.html", name=b_name, name_in_user_tb=name_in_user_tb, name_in_login_tb=name_in_login_tb, user=user)
     
     
 

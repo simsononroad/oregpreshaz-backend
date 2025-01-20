@@ -947,7 +947,7 @@ form {
     text-align: center;
     height: 90vh;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 0;
     
 }
 
@@ -962,7 +962,7 @@ form {
         border-radius: 10px;
     }
 }
-@media (max-width: 1511px) {
+@media (max-width: 1811px) {
     .minden1{
         display: block;
         justify-content: center;
@@ -970,7 +970,7 @@ form {
         text-align: center;
         height: auto;
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 0;
         align-items: center;
     }
 }
@@ -1040,9 +1040,16 @@ form {
     background-color: rgb(146, 146, 146);
     max-height: 300px;
     min-height: 300px;
+    
+    
+}
+
+.error_message{
+    background-color: rgb(146, 146, 146);
+    max-height: 300px;
+    min-height: 300px;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-    
 }
 
 .add_people{
@@ -1059,3 +1066,17 @@ form {
     border-bottom-right-radius: 30px;
 }
 
+
+.horizontal-line{
+    background-color: white;
+    border-radius: 100px;
+    height: 3px;
+    margin: 10px;
+}
+.vertical-line{
+    background-color: white;
+    border-radius: 100px;
+    width: 3px;
+    margin: 10px;
+    height: 30%;
+}
