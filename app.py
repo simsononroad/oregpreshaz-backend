@@ -278,7 +278,7 @@ def hogyesz_info_insert():
 
 
 
-@app.route("/change_datas", methods=["POST"])
+@app.route("/changedatas", methods=["POST"])
 def change_password():
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
