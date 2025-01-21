@@ -27,20 +27,18 @@ def normal_to_hash(atalakitando, encode):
 #   2. hozzon itt létre egy "password_in_hash_x" változót
 #   3. A try-on belül hozzon létre egy parancsoot ami beteszi a helyére a felhasználóneve és jelszót
 
-password_in_hash_1 = "b909abf3d9725ca479f74046b6a1235b973021bb3da7b8e212c113da8a4c86e6"
+
 password_in_hash_2 = "9ad025d4631deee59e4d7d881d97f615f7cdb91a8ce639ab651ca445d431ef6b"
-password_in_hash_3 = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
+
 con = sqlite3.connect("db/login.db")
 cur = con.cursor()
 try:
     cur.execute("CREATE TABLE messages(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, message, date, in_one)")
     cur.execute("CREATE TABLE login(id INTEGER PRIMARY KEY AUTOINCREMENT ,name, password, perm)")
-    ins = cur.execute(f"insert into login (name, password, perm) values ('Mariann', '{password_in_hash_1}', 'admin')")
-    con.commit()
+    
     ins = cur.execute(f"insert into login (name, password, perm) values ('Dani', '{password_in_hash_2}', 'admin')")
     con.commit()
-    ins = cur.execute(f"insert into login (name, password, perm) values ('Szabolcs', '{password_in_hash_3}', 'admin')")
-    con.commit()
+    
 except:
     pass
 
@@ -347,6 +345,7 @@ def login():
         return redirect(url_for("login_page"))
     session["user"] = username_in_html
     flash("Sikeres bejelentkezés!", "success")
+
     try:
         user = session["user"]
     except:
