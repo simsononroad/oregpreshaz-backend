@@ -1,0 +1,162 @@
+.navbar{
+    background-color: gray;
+    width: 200px;
+    height: fit-content;
+    padding-bottom: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+}
+
+.logout{
+    color: black;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+.li{
+    text-decoration: none;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(83, 83, 83);
+    margin: 0;
+    padding: 0;
+}
+
+
+
+h1 {
+    color: #333;
+}
+
+form {
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+
+input {
+    margin: 5px 0;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    transition: background-color 0.1s ease-in-out;
+    &:hover{
+        transition: background-color 0.1s ease-in-out;
+        background-color: rgb(163, 18, 18);
+    }
+}
+
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.col-sm-3{
+    border-radius: 10px;
+    border: 10px rgba(29, 164, 121, 0.281);
+    border-style: solid;
+    text-align: justify;
+    justify-content: center;
+    padding-right: 10px;
+    padding-top: 2px;
+}
+a{
+    color: black;
+    text-decoration: none;
+    background-color: rgb(214, 71, 71);
+    border-radius: 10px;
+    padding: 10px;
+    border-color: #333;
+    border-style: solid;
+    border: 3px;
+    transition: background-color 0.1s ease-in-out;
+    &:hover{
+        transition: background-color 0.1s ease-in-out;
+        background-color: rgb(163, 18, 18);
+    }
+}
+.nagy_szoveg{
+    width: 1800px;
+    text-align: justify;
+    display: block;
+    justify-content: center;
+}
+.row{
+    padding: 10px;
+    justify-content: space-around;
+    display: flex;
+}
+small{
+    font-size: small;
+}
+
+.login{
+    padding: 20px;
+    width: 500px;
+    height: 300px;
+    border-radius: 100px;
+    border: 4px black;
+    background-color: rgb(77, 77, 77);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.admin_peopleadd_div{
+    width: 500px;
+}
+
+
+.login_register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+
+}
+
+@media (max-width: 1190px){
+    .login_register{
+        display:block;
+        width: auto;
+        height: auto;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100vh;
+    }
+    
+}
+
+@media (max-width: 555px) {
+    .login{
+        padding: 20px;
+        width: auto;
+        height: auto;
+        border-radius: 100px;
+        border: 4px black;
+        background-color: rgb(77, 77, 77);
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+}

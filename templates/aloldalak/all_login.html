@@ -1,0 +1,18 @@
+{% extends 'aloldalak/base.html' %}
+{% block title %}Bejelentkezés{% endblock %}
+{% block content %}
+    <div class="minden1">
+        <div class="admin">
+            <h1>Admin felhasználó</h1>
+            <a href="/login_page"><img src="../../static/images/admin-icon.png" alt="" width="350"></a>
+            
+        </div>
+        <p class="vertical-line"></p>
+        <br>
+        <p class="vertical-line"></p>
+        <div class="guest">
+            <h1>Vendég felhasználó</h1>
+            <a href="/guest_page" class="user-icon"><img src="../../static/images/user-icon.png" alt="" width="280"></a>
+        </div>
+    </div>
+{% endblock %}

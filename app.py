@@ -302,6 +302,11 @@ def change_password():
         return redirect(url_for("change_data", error_message=error_message))
     
 
+@app.route("/login_all")
+def login_all():
+    return render_template("aloldalak/all_login.html")
+
+
 @app.route("/changedata")
 def change_data():
     if "user" not in session:
