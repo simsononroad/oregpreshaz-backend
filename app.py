@@ -278,7 +278,7 @@ def hogyesz_info_insert():
 
 
 
-@app.route("/changedata", methods=["POST"])
+@app.route("/change_datas", methods=["POST"])
 def change_password():
     con = sqlite3.connect("db/login.db")
     cur = con.cursor()
@@ -301,6 +301,12 @@ def change_password():
         error_message = "Helytelen jelszó."
         return redirect(url_for("change_data", error_message=error_message))
     
+
+@app.route("/changedata")
+def change_data():
+    if "user" not in session:
+        flash("Először jelentkezz be!", "error")
+    return render_template("aloldalak/admin/change_data.html", user=session["user"])
 
 #Név változtatás
 @app.route("/change_name", methods=["POST"])
