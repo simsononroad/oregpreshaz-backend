@@ -300,6 +300,32 @@ def change_password():
         flash("Helytelen jelszó.", "error")
         error_message = "Helytelen jelszó."
         return redirect(url_for("change_data", error_message=error_message))
+
+@app.route("/change_datas_alap", methods=["POST"])
+def change_password_alap():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    cur.execute(f"SELECT password FROM user WHERE name = '{session['user_p']}'")
+    password_in_db = cur.fetchall()
+    old_name = session["user_p"]
+    new_password = request.form['new_password']
+    old_password = request.form['old_password']
+    old_password_in_hash = normal_to_hash(old_password, "UTF-8")
+    print(password_in_db)
+    password_in_db = password_in_db[0][0]
+    if password_in_db == old_password_in_hash:
+        new_password_in_hash = normal_to_hash(new_password, "UTF-8")
+        ins = cur.execute(f"UPDATE user SET password = '{new_password_in_hash}' WHERE name = '{old_name}'")
+        con.commit()
+        session.pop("user", None)
+        flash("Sikeres kijelentkezés.", "success")
+        return redirect(url_for("login_all"))
+    else:
+        flash("Helytelen jelszó.", "error")
+        error_message = "Helytelen jelszó."
+        return redirect(url_for("change_data", error_message=error_message))
+    
+    
     
 
 @app.route("/login_all")
@@ -327,6 +353,20 @@ def change_name():
     session.pop("user", None)
     flash("Sikeres kijelentkezés.", "success")
     return redirect(url_for("login_page"))
+
+@app.route("/change_name_alap", methods=["POST"])
+def change_name_alap():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    old_name = session["user_p"]
+    new_name = request.form['new_name']
+
+
+    ins = cur.execute(f"UPDATE user SET name = '{new_name}' WHERE name = '{old_name}'")
+    con.commit()
+    session.pop("user", None)
+    flash("Sikeres kijelentkezés.", "success")
+    return redirect(url_for("login_all"))
 
 logged_in_username = ""
 # Bejelentkezés
