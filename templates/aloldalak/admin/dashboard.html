@@ -83,11 +83,11 @@
                 href="https://youtube.com/@simsononroad">youtube</a>, <a href="https://github.com/simsononroad">Github</a><br>©oregpreshaz.eu</div>
     </div>
 
-    <div class="chat" id="chat-box">
+    <div class="chat chat-box" id="chat-box" >
         <center><h1>Beszélgetés</h1></center>
-        <ul>
+        <ul class="messages">
             {% for minden in in_one%}
-                {{minden[0]}} <a onclick="select_message('{{ minden[0] }}')">Kiválaszt</a><br>
+                {{minden[0]}} ||  <a onclick="select_message('{{ minden[0] }}')" class="select_message">(Kiválaszt)</a><br>
             {% endfor %}
 
             

@@ -992,8 +992,8 @@ form {
 }
 
 .chat{
-    max-width: 500px;
     max-height: 600px;
+    width: 100px;
     background-color: gray;
     border-radius: 10px;
     padding-right: 20px;
@@ -1015,7 +1015,7 @@ form {
 
 .button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #f4511e;
     color: white;
     border: none;
     border-radius: 5px;
@@ -1099,6 +1099,57 @@ a > img:hover {
     background-color: #555;
     border: 10px;
 }
-.user-icon{
-    /*padding: 10px;*/
+.chat-box{
+    width: 95%;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.messages {
+    border: 1px solid #ddd;
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #eee;
+}
+
+.messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: #eee;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 4px;
+}
+
+.message {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.message:last-child {
+    border-bottom: none;
+}
+.select_message{
+    color: rgb(255, 94, 94);
+    text-decoration: underline;
+    font-weight: initial;
 }
