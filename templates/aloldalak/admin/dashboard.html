@@ -86,10 +86,9 @@
     <div class="chat chat-box" id="chat-box" >
         <center><h1>Beszélgetés</h1></center>
         <ul class="messages">
-            {% for minden in in_one%}
-                {{minden[0]}} ||  <a onclick="select_message('{{ minden[0] }}')" class="select_message">(Kiválaszt)</a><br>
+            {% for message in messages_db%}
+                <div class="uzenet">{{message[0]}}: {{message[1]}} <p style="font-size: small;">{{message[2]}}</p>  <a onclick="select_message('{{ message[0] }}, {{ message[1] }}')" class="select_message">(Kiválaszt)</a></div>
             {% endfor %}
-
             
             
         </ul>
@@ -103,12 +102,20 @@
                 
             </center>
         </form>
+        <form action="/edit_messages" method="post">
+            <center class="user_edit_form">
+                <textarea name="selected_message" placeholder="Kiválasztott üzenet" style="resize: none;" id="delete_msg"></textarea>
+                <textarea type="text" placeholder="Üzenet" class="del-text" name="new_message" id="new_message"></textarea>
+                <button class="button" onclick="szerkeszt()">Szerkeszt</button>
+            </center>
+        </form>
         <form action="/delete_messages" method="post">
             <center>
                 <textarea type="text" placeholder="Üzenet" class="del-text" name="delete_message" id="delete_msg"></textarea>
                 <button class="button" onclick="del()">Törlés</button>
             </center>
         </form>
+        
     </div>
 </body>
 

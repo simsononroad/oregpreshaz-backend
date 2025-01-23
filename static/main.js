@@ -29,9 +29,12 @@ function element_del(){
 	var text = document.getElementById("element-text").innerHTML=""
 }
 
-function select_message(message){
+function select_message(name, message){
+	console.log(message, name)
 	var inp = document.getElementById("delete_msg")
-	inp.innerText=message
+
+	var minden = `${message}`
+	inp.innerText=minden
 	
 }
 

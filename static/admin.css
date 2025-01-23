@@ -992,7 +992,7 @@ form {
 }
 
 .chat{
-    max-height: 600px;
+    max-height: 700px;
     width: 100px;
     background-color: gray;
     border-radius: 10px;
@@ -1152,4 +1152,8 @@ a > img:hover {
     color: rgb(255, 94, 94);
     text-decoration: underline;
     font-weight: initial;
+}
+
+.uzenet{
+    display: flex;
 }

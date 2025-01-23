@@ -489,18 +489,46 @@ def dashboard():
         return redirect(url_for("index"))
     cur.execute(f"SELECT perm FROM login WHERE name='{user}'")
     user_with_rang = cur.fetchall()
+    cur.execute(f"SELECT name, message, date FROM messages")
+    messages_db = cur.fetchall()
     cur.execute(f"SELECT in_one FROM messages")
     in_one = cur.fetchall()
+    print(messages_db)
     if "user" not in session:
         flash("Először jelentkezz be!", "error")
         return redirect(url_for("index"))
     if user_with_rang[0][0] == "alap":
         return redirect(url_for("alap_dashboard"))
     else:
-        return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei, in_one=in_one)
+        return render_template("aloldalak/admin/dashboard.html", user=session["user"], hogyesz_ertekei=hogyesz_ertekei, messages_db=messages_db, in_one=in_one)
 
 
-            
+
+
+
+
+@app.route("/edit_messages" , methods=["POST"])
+def edit_messages():
+    con = sqlite3.connect("db/login.db")
+    cur = con.cursor()
+    message = request.form["selected_message"]
+    
+    return redirect(url_for("dashboard"))
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
 
 @app.route("/admin/motor")
