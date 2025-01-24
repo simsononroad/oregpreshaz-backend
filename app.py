@@ -1125,7 +1125,7 @@ def sport():
 
 @app.route('/short')
 def short():
-    return render_template('linkshorter/short.html')
+    return render_template('linkshorter/index.html')
 
 
 if __name__ == '__main__':
