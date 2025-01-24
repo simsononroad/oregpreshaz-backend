@@ -1121,6 +1121,13 @@ def motorozas():
 def sport():
     return render_template('aloldalak/sport.html')
 
+
+
+@app.route('/short')
+def short():
+    return render_template('linkshorter/short.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
